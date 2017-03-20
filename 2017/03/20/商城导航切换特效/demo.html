@@ -1,0 +1,166 @@
+<!--H5规范:声明文档类型 为html
+	让文档符合W3C规范
+-->
+<!doctype html>
+<html>
+	<head><!--头部:非可视化标签，规定网页的一些信息-->
+		<meta charset="utf-8" ><!--字符编码；utf-8 国际编码 gbk中文编码 gb2312-->
+		<title>京东选项卡切换特效</title>
+		<meta name="keywords" content="关键词1,关键词2">
+		<meta name="description" content="描述">
+		<style>/*css样式的存放位置*/
+		*{/*通用选择器:选择到所有的标签元素*/
+			margin:0px;/*外边距*/padding:0px;/*内边距*/
+		}
+		#nav{/*# di选择器 nav*/
+			width:1000px;height:50px;
+			border-bottom:1px solid red;/*下边框线:宽度 类型(实线) 颜色*/
+			margin:100px auto;/*上下为100px 左右居中*/
+			margin-bottom:0;
+			line-height:50px;/*行高:垂直居中*/
+		}
+		#nav ul{
+			width:840px;height:50px;
+			/*background:#ff0099;*/
+			border:1px solid #ccc;
+			border-bottom:none;
+			float:right;
+		}
+		#nav ul li{
+			list-style-type:none;/*去除前面的序列号:小黑圆点*/
+			float:left;/*右浮动*/
+			/*padding:0px 10px;*/
+			width:80px;height:50px;
+			padding:0px 20px;
+			text-align:center;/*水平居中*/
+			/*box-sizing:border-box;css3怪异盒模型*/
+			position:relative;/*相对定位*/
+		}
+		.first{
+			width:55px;
+		}
+		/*li:hover{/*鼠标滑上去实现什么效果
+			border-top:3px solid red;
+			border-left:1px solid red;
+			border-right:1px solid red;
+			border-bottom:1px solid #fff;
+			height:47px;line-height:47px;
+			margin-left:-1px;
+			margin-top:-1px;
+			padding-left:11px;
+		}*/
+		a{
+			text-decoration:none;/*去除下划线*/
+			color:#000;
+			width:120px;height:50px;
+			display:block;
+			/*background:#00ff66;*/
+			position:absolute;/*绝对定位*/
+			left:0px;top:0px;
+			z-index:2;/*层级:层级越高越优先显示*/
+		}
+		.first a{
+			width:120px;
+		}
+		/*a:hover{
+			border-top:3px solid red;
+			border-left:1px solid red;
+			border-right:1px solid red;
+			border-bottom:1px solid #fff;
+			margin-top:-3px;
+			margin-left:-1px;
+			height:49px;
+			color:red;
+		}*/
+		.line{
+			width:1px;height:15px;background:#ccc;
+			position:absolute;
+			right:-1px;top:17px;
+			z-index:1;
+		}
+		#content{
+			width:1000px;height:400px;
+			margin:10px auto;
+		}
+		#content ul li{
+			list-style:none;width:1000px;height:400px;
+			display:none;color:#fff;font-size:20px;
+		}
+
+		</style>
+	</head>
+	<body><!--身体:可视化标签-->
+		<!--盒子模型标签-->
+		<div id="nav"><!--id名 唯一性(身份证) 见名知意(导航)-->
+			<ul><!--无序列表标签-->
+				<li class="first">
+					<a href="#">热门</a>
+					<div class="line"></div>
+				</li>
+				<li>
+					<a href="#">大牌速递</a>
+					<div class="line"></div>
+				</li>
+				<li>
+					<a href="#">潮牌新品</a>
+					<div class="line"></div>
+				</li>
+				<li>
+					<a href="#">运动鞋服</a>
+					<div class="line"></div>
+				</li>
+				<li>
+					<a href="#">健身训练</a>
+					<div class="line"></div>
+				</li>
+				<li>
+					<a href="#">休闲户外</a>
+					<div class="line"></div>
+				</li>
+				<li>
+					<a href="#">智能手机</a>
+					<div class="line"></div>
+				</li>
+			</ul>
+		</div>
+		<div id="content">
+			<ul>
+				<li style="background:#0033ff;display:block">热门</li>
+				<li style="background:#ff0066">大牌速递</li>
+				<li style="background:#cccc00">潮牌新品</li>
+				<li style="background:#66cc66">运动鞋服</li>
+				<li style="background:#660033">健身训练</li>
+				<li style="background:#33cc33">休闲户外</li>
+				<li style="background:#ff6633">智能手机</li>
+			</ul>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script>
+			//alert($);//弹出jquery的代理函数 $
+			//$("#nav ul li") 获取到所有的li
+			//$(this) 鼠标滑动到谁上面就是谁
+			$("#nav ul li").hover(function(){//找到li，鼠标滑上去实现什么效果
+				var index = $(this).index();//获取到鼠标滑动上去的元素的序列号
+				//console.log(index);
+				$(this).find("a").css({
+					"border-top":"3px solid red",
+					"border-left":"1px solid red",
+					"border-right":"1px solid red",
+					"border-bottom":"1px solid #fff",
+					"margin-top":"-3px",
+					"margin-left":"-1px",
+					"height":"49px",
+					"color":"red"
+				}).parent().siblings().find("a").css({
+					"border":"none",
+					"margin-top":"0px",
+					"margin-left":"0px",
+					"height":"50px",
+					"color":"#000"
+				});
+				//eq(index) 找到相应序列号的li
+				$("#content ul li").eq(index).show().siblings().hide();
+			});
+		</script>
+	</body>
+</html>
