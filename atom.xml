@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yxcui&#39;s Little Stack</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yxcui.github.io/"/>
+  <updated>2017-03-21T02:38:35.339Z</updated>
+  <id>http://yxcui.github.io/</id>
+  
+  <author>
+    <name>yxcui</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Github+Hexo搭建博客网站---基础环境</title>
+    <link href="http://yxcui.github.io/2017/03/20/Github+Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99---%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yxcui.github.io/2017/03/20/Github+Hexo搭建博客网站---基础环境/</id>
+    <published>2017-03-20T06:37:39.840Z</published>
+    <updated>2017-03-21T02:38:35.339Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>记录博客的地方的确很多，比如CSDN、博客园、简书和作业部落等，但是这些好像不易百度到或者想直接去找自己的资料，所以如果有一个公共接口进入，能够将所有的记录内容都能访问到，就显得很easy，这就可以通过一个域名进入博客网站主页，然后就很简单找到自己记录过的笔记和心得，是个很不错的选择，还能装一装X，拥有自己的<a href="https://yxcui.github.io/">独家域名</a>。<br>以后还可以将自己做的一些工作放到博客上，比如做的一些数据分析工作等。</p>
+<h3 id="一、所需材料"><a href="#一、所需材料" class="headerlink" title="一、所需材料"></a>一、所需材料</h3><h4 id="1-Git-安装"><a href="#1-Git-安装" class="headerlink" title="1. Git 安装"></a>1. Git 安装</h4><p>此前总结过<a href="https://zybuluo.com/ecnu-cyx/note/692971" target="_blank" rel="external">Git的安装和配置过程</a>。</p>
+<h4 id="2-Node-js-安装"><a href="#2-Node-js-安装" class="headerlink" title="2. Node.js 安装"></a>2. Node.js 安装</h4><p>菜鸟教程上有很好的<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">Node.js安装和配置教程</a>。</p>
+<h4 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. Hexo</h4><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds. <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">中文帮助文档</a></p>
+<h3 id="二、Hexo安装与配置"><a href="#二、Hexo安装与配置" class="headerlink" title="二、Hexo安装与配置"></a>二、Hexo安装与配置</h3><h4 id="1-安装Hexo"><a href="#1-安装Hexo" class="headerlink" title="1. 安装Hexo"></a>1. 安装Hexo</h4><p>在任意处打开Git Bash，执行<code>$ npm install -g hexo-cli</code><br>【注：npm命令是集成在新版的node.js中的，可以输入<code>npm -v</code>来查看npm的版本，即node.js的版本，出现版本号说明安装成功。npm可以从服务器下载第三方的包和命令行程序到本地，同样可以将自己写的包和命令行程序上传到NPM服务器上】</p>
+<h4 id="2-创建本地存放博客目录"><a href="#2-创建本地存放博客目录" class="headerlink" title="2. 创建本地存放博客目录"></a>2. 创建本地存放博客目录</h4><p>选择一个本地目录，空白处右键选择Git Bash Here，执行：</p>
+<blockquote>
+<ul>
+<li><code>$ hexo init &lt;folder&gt;</code>  #创建目录并初始化</li>
+<li><code>$ cd &lt;folder&gt;</code>  #进入创建的文件夹</li>
+<li><code>$ npm install</code>  #安装依赖包</li>
+<li>目录结构如下：<ul>
+<li>.<br>  ├── _config.yml<br>  ├── package.json<br>  ├── .gitignore<br>  ├── node_modules<br>  ├── scaffolds<br>  ├── source<br>  |   ├── _drafts<br>  |   └── _posts<br>  └── themes</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="3-启动本地服务"><a href="#3-启动本地服务" class="headerlink" title="3. 启动本地服务"></a>3. 启动本地服务</h4><p>执行以下命令启动本地服务：</p>
+<blockquote>
+<ul>
+<li><code>$ hexo generate</code>  #生成静态文件</li>
+<li><code>$ hexo server</code>  #启动本地服务器</li>
+</ul>
+</blockquote>
+<p>如果启动过程中没有报错，此时可以用浏览器访问<code>http://localhost:4000/</code>，会出现一个Hello World的博客页面，hexo使用的默认主题是landscape，而且此时的服务是本地启动的，别人并不能看到。<br>【注：更改本地服务端口命令<code>hexo server -p &lt;port&gt;</code>】</p>
+<h4 id="4-与Github连接"><a href="#4-与Github连接" class="headerlink" title="4. 与Github连接"></a>4. 与Github连接</h4><blockquote>
+<ol>
+<li><p>首先在Github上创建版本库New Repository<br>注意：<strong>repository的名字必须为<code>username.github.io</code>，username即为Github的账户名</strong>，我的个人地址为<code>https://yxcui.github.io</code>，如果将Repository name随意填写，是不能访问的，返回的是404的错误页面。</p>
+</li>
+<li><p>配置站点文件<code>_config.yml</code><br>站点配置文件位于博客目录下<code>D:\Hexo\_config.yml</code>，，找到<code>deploy</code>属性，修改为如下：</p>
+<ul>
+<li>注：冒号后有一位空格<br><code>deploy:
+  type: git  #推送方式
+  repository: https://github.com/yxcui/yxcui.github.io.git  #Github上创建的版本库目录
+  branch: master  #推送的版本库分支</code></li>
+</ul>
+</li>
+<li><p>将服务部署到Github上</p>
+<ul>
+<li><code>$ hexo clean</code></li>
+</ul>
+<ul>
+<li><code>$ hexo g</code></li>
+</ul>
+<ul>
+<li><code>$ hexo d</code>  ##<code>hexo d</code>命令第一次会要求输入用户名和密码，即Github的用户名和秘密<br>【注：如果出现错误”<code>ERROR Deployer not found : github</code>“，先运行<code>$ npm install hexo-deployer-git --save</code>，在执行上述命令】</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="最后访问"><a href="#最后访问" class="headerlink" title="最后访问"></a>最后访问</h3><p>个人主页：<a href="https://yxcui.github.io">https://yxcui.github.io</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;写在前面&lt;/h3&gt;&lt;p&gt;记录博客的地方的确很多，比如CSDN、博客园、简书和作业部落等，但是这些好像不易百度到或者想直接去找自己的资料，所以如果有一
+    
+    </summary>
+    
+    
+      <category term="Github" scheme="http://yxcui.github.io/tags/Github/"/>
+    
+  </entry>
+  
+</feed>
