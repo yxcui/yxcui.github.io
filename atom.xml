@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yxcui.github.io/"/>
-  <updated>2017-03-21T02:38:35.339Z</updated>
+  <updated>2017-08-16T09:18:05.424Z</updated>
   <id>http://yxcui.github.io/</id>
   
   <author>
@@ -16,18 +16,159 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Baidu Geocoding</title>
+    <link href="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/"/>
+    <id>http://yxcui.github.io/2017/08/16/Baidu-Geocoding/</id>
+    <published>2017-08-16T08:03:50.000Z</published>
+    <updated>2017-08-16T09:18:05.424Z</updated>
+    
+    <content type="html"><![CDATA[<p>[TOC]</p>
+<h3 id="有话说"><a href="#有话说" class="headerlink" title="有话说"></a>有话说</h3><p>在当前的大数据和人工智能的浪潮下，铺天盖地都是数据挖掘、机器学习和人工智能，基础就是数据，就像在地理信息领域一直说的一句话 “数据是GIS的血液”，那么推广到现在的人工智能，大数据就是人工智能的血液，没有数据就无从谈起人工智能。</p>
+<p>在地理信息领域，一直存在的一个关键词就是（反）地理编码，地理编码是较为常用的一项地理信息技术，现在很多对于大量关于位置的信息都是存储为地址的形式，例如 “上海市闵行区东川路500号”，而在有关空间分析的时候是不能很好的利用这些文本地址数据去进行空间化，而是需要将其转换为一个个的地理坐标（经纬度），然后进行空间化，这样就能在传统的分析基础上，增加空间维度，使得数据分析具有空间上的意义，比如空间聚类、地理加权回归以及空间可视化。</p>
+<p>本文围绕百度地图（反）地理编码进行记录。</p>
+<h3 id="（反）地理编码简述"><a href="#（反）地理编码简述" class="headerlink" title="（反）地理编码简述"></a>（反）地理编码简述</h3><blockquote>
+<ul>
+<li>地理编码又称地址匹配，就是指将要素的地址信息（如所在的城市、路名、门牌号和邮政编码等）转换为地理坐标信息。</li>
+</ul>
+<ul>
+<li>反地理编码，即为地理编码的逆向过程，就是将将地理坐标转换为标准地址。</li>
+</ul>
+<ul>
+<li>地理编码服务：有很多的地图公司都提供的了在线的地理编码服务，如百度地图、谷歌地图以及高德地图等等。</li>
+</ul>
+</blockquote>
+<h3 id="地理坐标系统"><a href="#地理坐标系统" class="headerlink" title="地理坐标系统"></a>地理坐标系统</h3><p>地理坐标的数值只有在一个标准的地理坐标系统环境下，才是有意义的，在地理学上，比较常见的就是地理坐标和投影坐标，此处只看地理坐标。</p>
+<p>在国内较为常见的地理坐标系统包括WGS84，即GPS上使用的坐标系；国测局坐标，又称火星坐标系，简称GCJ02；另外就是百度坐标。</p>
+<blockquote>
+<ul>
+<li>注：百度坐标是在火星坐标系上进一步进行加密，也只有百度地图使用；</li>
+</ul>
+<ul>
+<li>火星坐标一般是国内常用的地图公司，如高德、腾讯和搜狗地图等等。</li>
+</ul>
+<ul>
+<li>WGS84 坐标系是国家标准，常见的谷歌地图、osm等。</li>
+</ul>
+</blockquote>
+<p>此文使用的是百度地图的地理编码服务，故地理编码返回的是百度坐标，然后利用转换公式将其转换为WGS-84 坐标。</p>
+<h3 id="百度地图地理编码服务"><a href="#百度地图地理编码服务" class="headerlink" title="百度地图地理编码服务"></a>百度地图地理编码服务</h3><h4 id="1-百度地图地理编码服务"><a href="#1-百度地图地理编码服务" class="headerlink" title="1. 百度地图地理编码服务"></a>1. 百度地图地理编码服务</h4><p><img src="/2017/08/16/Baidu-Geocoding/BaiduMap Geocoding.png" alt="BaiduMap Geocoding"></p>
+<p><a href="http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding" target="_blank" rel="external">百度地图地理编码服务</a>主界面如上，该服务提供的接口可以将地理转换为经纬度或将经纬度转换为地址，对于语言没有限制，返回的格式为JSON或XML。<br>帮助非常详细，此处不再冗余说明。</p>
+<h4 id="2-Python-代码"><a href="#2-Python-代码" class="headerlink" title="2. Python 代码"></a>2. Python 代码</h4><p>利用Python进行网络请求，这就需要一些模块的支持，如<strong>urllib2</strong>用于请求服务接口，<strong>json</strong>用于解析返回的数据包，<strong>time</strong>用于持续请求的控制，过快频繁的请求会让服务器压力增大，进而可能会收到空的数据包或者返回异常，所以建议请求一定次数后间隔一段时间再发出请求，<strong>math</strong>模块用于公式的转换。<br><strong>重要的是ak，一定要申请，最好实名认证一下，这样可以增加每天的请求次数</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># geocoding service address</span></div><div class="line">urlService = <span class="string">"http://api.map.baidu.com/geocoder/v2/"</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding params</span></div><div class="line">paramsCode = &#123;<span class="string">"ak"</span>:<span class="string">"your ak"</span>,<span class="string">"output"</span>:<span class="string">"json"</span>,<span class="string">"callback"</span>:<span class="string">"showLocation"</span>&#125;</div><div class="line"><span class="comment"># recoding params</span></div><div class="line">paramsRecode = &#123;<span class="string">"ak"</span>:<span class="string">"your ak"</span>,<span class="string">"output"</span>:<span class="string">"json"</span>,<span class="string">"callback"</span>:<span class="string">"renderReverse"</span>&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># url request for response</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">urlRequest</span><span class="params">(url, params)</span>:</span></div><div class="line">    request = urllib2.Request(url, urllib.urlencode(params))</div><div class="line">    html = <span class="string">"&#123;'status':1,'result':&#123;'location':&#123;'lng':0,'lat':0&#125;,'precise':0,'confidence':0,'level':'ok'&#125;&#125;"</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        response = urllib2.urlopen(request)</div><div class="line">        html = response.read()</div><div class="line">        response.close()</div><div class="line">        time.sleep(<span class="number">0.3</span>)   <span class="comment"># sleep for 0.3 seconds at once</span></div><div class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:   <span class="comment"># detect the Exception</span></div><div class="line">        <span class="keyword">print</span> err</div><div class="line">        time.sleep(<span class="number">300</span>)</div><div class="line">    <span class="keyword">finally</span>:</div><div class="line">        <span class="keyword">return</span> html</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># transfer Json text obj to Json python object</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">objToJson</span><span class="params">(docJson)</span>:</span></div><div class="line">    objJson = json.loads(docJson)   <span class="comment"># Deserialize 'docJson'(a 'str' or 'unicode' instance containing a JSON document) to a Python object</span></div><div class="line">    <span class="keyword">return</span> objJson</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># transfer address to LngLat</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">AddrToLngLat</span><span class="params">(address, city=<span class="string">'上海'</span>)</span>:</span> <span class="comment"># 请求参数address(必须)/city(非必须，默认"北京市")</span></div><div class="line">    location = &#123;&#125;</div><div class="line">    paramsCode[<span class="string">"address"</span>] = address</div><div class="line">    paramsCode[<span class="string">"city"</span>] = city</div><div class="line">    content = objToJson(urlRequest(urlService,paramsCode))</div><div class="line">    </div><div class="line">    status = content[<span class="string">'status'</span>] <span class="comment">#返回结果状态</span></div><div class="line">    <span class="keyword">if</span> status == <span class="number">0</span>:</div><div class="line">        result = content[<span class="string">'result'</span>] <span class="comment">#返回结果</span></div><div class="line">        location = result[<span class="string">'location'</span>] <span class="comment">#object类型,经纬度坐标</span></div><div class="line">        precise = result[<span class="string">'precise'</span>] <span class="comment">#位置附加信息，是否精确查找。1为精确查找，0为模糊打点</span></div><div class="line">        confidence = result[<span class="string">'confidence'</span>] <span class="comment">#可信度，描述打点精确度</span></div><div class="line">        level = result[<span class="string">'level'</span>] <span class="comment">#地址类型</span></div><div class="line">        <span class="keyword">return</span> location</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> &#123;<span class="string">'lat'</span>:<span class="number">0</span>,<span class="string">'lng'</span>:<span class="number">0</span>&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># transfer LngLat to address</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">LngLatToAddr</span><span class="params">(location,coordtype=<span class="string">'wgs84ll'</span>,pois=<span class="number">0</span>)</span>:</span> <span class="comment"># 请求参数location(必须)/coordtype(非必须，默认"bd09ll")/pois(非必须，默认"0")</span></div><div class="line">    paramsRecode[<span class="string">'location'</span>] = location</div><div class="line">    paramsRecode[<span class="string">'coordtype'</span>] = coordtype</div><div class="line">    paramsRecode[<span class="string">'pois'</span>] = pois</div><div class="line">    content = objToJson(urlRequest(urlService,paramsRecode))</div><div class="line"></div><div class="line">    status = content[<span class="string">'status'</span>] <span class="comment">#返回结果状态</span></div><div class="line">    result = content[<span class="string">'result'</span>] <span class="comment">#返回结果</span></div><div class="line">    formatted_address = result[<span class="string">'formatted_address'</span>] <span class="comment">#结构化地址信息</span></div><div class="line">    business = result[<span class="string">'business'</span>] <span class="comment">#所在商圈信息，如"人民大学,中关村,苏州街"</span></div><div class="line">    addressComponent = result[<span class="string">'addressComponent'</span>] <span class="comment">#组成地址的各部分信息</span></div><div class="line">    pois = result[<span class="string">'pois'</span>] <span class="comment">#周边POI数组，数组元素又包含商圈的基本信息</span></div><div class="line">    sematic_description = result[<span class="string">'sematic_description'</span>] <span class="comment">#当前位置结合POI的语义化结果描述</span></div><div class="line">    <span class="keyword">return</span> formatted_address</div></pre></td></tr></table></figure>
+<p>以上的代码能够完整的进行（反）地理编码，但是地理编码返回的是百度坐标系，在大多数的分析软件中的是不支持的，比如ArcGIS，接下来就需要将其转换为WGS-84坐标系，以便后续的利用。<br>此公式是一个较为常用的，亲测可行。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># convert Baidu Coordinates to WGS84 that used more</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(bd_lat,bd_lng)</span>:</span></div><div class="line">    <span class="keyword">import</span> math</div><div class="line">    pi = math.pi*<span class="number">3000.0</span> / <span class="number">180.0</span></div><div class="line">    x = bd_lng - <span class="number">0.0065</span></div><div class="line">    y = bd_lat - <span class="number">0.006</span></div><div class="line">    z = math.sqrt(x*x+y*y) - <span class="number">0.00002</span>*math.sin(y*pi)</div><div class="line">    theta = math.atan2(y,x) - <span class="number">0.000003</span>*math.cos(x*pi)</div><div class="line">    lng = z*math.cos(theta)</div><div class="line">    lat = z*math.sin(theta)</div><div class="line">    data = [str(lat), str(lng)]</div><div class="line">    <span class="keyword">return</span> data</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&quot;有话说&quot;&gt;&lt;a href=&quot;#有话说&quot; class=&quot;headerlink&quot; title=&quot;有话说&quot;&gt;&lt;/a&gt;有话说&lt;/h3&gt;&lt;p&gt;在当前的大数据和人工智能的浪潮下，铺天盖地都是数据挖掘、机器学习和人工智能，基础就是数据，就像在地理信息领
+    
+    </summary>
+    
+    
+      <category term="GIS" scheme="http://yxcui.github.io/tags/GIS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Step Stones</title>
+    <link href="http://yxcui.github.io/2017/08/13/Step-Stones/"/>
+    <id>http://yxcui.github.io/2017/08/13/Step-Stones/</id>
+    <published>2017-08-13T15:03:33.000Z</published>
+    <updated>2017-08-14T06:12:49.063Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Two Sum</title>
+    <link href="http://yxcui.github.io/2017/08/12/Two-Sum/"/>
+    <id>http://yxcui.github.io/2017/08/12/Two-Sum/</id>
+    <published>2017-08-12T13:59:56.000Z</published>
+    <updated>2017-08-14T06:12:49.064Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2017/08/12/Two-Sum/Two-Sum.jpg" alt="LeetCode 问题页"></p>
+<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h3><blockquote>
+<p>Given an array of integers, return <strong>indices</strong> of the two numbers such that they add up to a specific target.</p>
+</blockquote>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><blockquote>
+<ul>
+<li>Given nums = [2, 7, 11, 15], target = 9</li>
+</ul>
+<ul>
+<li>Because nums[0] + nums[1] = 2 + 7 = 9,</li>
+</ul>
+<ul>
+<li>return [0, 1].</li>
+</ul>
+</blockquote>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :type target: int</div><div class="line">        :rtype: List[int]</div><div class="line">        """</div><div class="line"></div><div class="line">        allindices = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</div><div class="line">            <span class="comment"># The 'rest' is from 'target' minus each 'element' traversed from the list, and then judge whether the 'rest' is exist in list.</span></div><div class="line">            rest = target - nums[i]</div><div class="line"></div><div class="line">            <span class="keyword">if</span> rest <span class="keyword">in</span> nums:</div><div class="line">                allindices.append((i, nums.index(rest)))</div><div class="line"></div><div class="line">        indices = []</div><div class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> allindices:</div><div class="line">            <span class="keyword">if</span> t[<span class="number">0</span>] != t[<span class="number">1</span>]:</div><div class="line">                indices.append(tuple(sorted(t)))</div><div class="line">        <span class="keyword">return</span> list(set(indices))</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    s = Solution()</div><div class="line">    indices = s.twoSum([<span class="number">0</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">0</span>], <span class="number">0</span>)</div><div class="line">    <span class="keyword">print</span> indices</div></pre></td></tr></table></figure>
+<h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><blockquote>
+<p>To improve the efficience of running, it’s need to optimize. And if you have a better idea or suggestion, please leave your words here!</p>
+<p><a href="https://github.com/yxcui/LeetCode/blob/master/Two%20Sum.py" target="_blank" rel="external">代码链接</a></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2017/08/12/Two-Sum/Two-Sum.jpg&quot; alt=&quot;LeetCode 问题页&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Question&quot;&gt;&lt;a href=&quot;#Question&quot; class=&quot;headerlink&quot; title=&quot;Questi
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="http://yxcui.github.io/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Github+Hexo搭建博客网站---博客配置与主题</title>
+    <link href="http://yxcui.github.io/2017/08/03/Github-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99-%E5%8D%9A%E5%AE%A2%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%B8%BB%E9%A2%98/"/>
+    <id>http://yxcui.github.io/2017/08/03/Github-Hexo搭建博客网站-博客配置与主题/</id>
+    <published>2017-08-03T09:09:03.000Z</published>
+    <updated>2017-08-14T06:12:49.062Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://theme-next.iissnan.com/" target="_blank" rel="external">NexT配置文档</a></p>
+<h3 id="添加tags、author等页面："><a href="#添加tags、author等页面：" class="headerlink" title="添加tags、author等页面："></a>添加tags、author等页面：</h3><p><code>$ cd hexo</code><br><code>$ hexo new page tags</code></p>
+<h3 id="更新npm版本"><a href="#更新npm版本" class="headerlink" title="更新npm版本"></a>更新npm版本</h3><p><code>$ nmp i nmp -g</code></p>
+<h3 id="添加RSS插件"><a href="#添加RSS插件" class="headerlink" title="添加RSS插件"></a>添加RSS插件</h3><p><code>$ npm install hexo-generator-feed</code></p>
+<h3 id="添加search页面"><a href="#添加search页面" class="headerlink" title="添加search页面"></a>添加search页面</h3><p><code>$ npm install --save hexo-generator-search</code></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://theme-next.iissnan.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;NexT配置文档&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;添加tags、author等页面：&quot;&gt;&lt;a href=&quot;#添加tags、auth
+    
+    </summary>
+    
+    
+      <category term="Github" scheme="http://yxcui.github.io/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Github+Hexo搭建博客网站---基础环境</title>
-    <link href="http://yxcui.github.io/2017/03/20/Github+Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99---%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83/"/>
-    <id>http://yxcui.github.io/2017/03/20/Github+Hexo搭建博客网站---基础环境/</id>
-    <published>2017-03-20T06:37:39.840Z</published>
-    <updated>2017-03-21T02:38:35.339Z</updated>
+    <link href="http://yxcui.github.io/2017/08/03/Github+Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99---%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yxcui.github.io/2017/08/03/Github+Hexo搭建博客网站---基础环境/</id>
+    <published>2017-08-02T17:59:56.000Z</published>
+    <updated>2017-08-14T06:12:49.062Z</updated>
     
     <content type="html"><![CDATA[<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>记录博客的地方的确很多，比如CSDN、博客园、简书和作业部落等，但是这些好像不易百度到或者想直接去找自己的资料，所以如果有一个公共接口进入，能够将所有的记录内容都能访问到，就显得很easy，这就可以通过一个域名进入博客网站主页，然后就很简单找到自己记录过的笔记和心得，是个很不错的选择，还能装一装X，拥有自己的<a href="https://yxcui.github.io/">独家域名</a>。<br>以后还可以将自己做的一些工作放到博客上，比如做的一些数据分析工作等。</p>
-<h3 id="一、所需材料"><a href="#一、所需材料" class="headerlink" title="一、所需材料"></a>一、所需材料</h3><h4 id="1-Git-安装"><a href="#1-Git-安装" class="headerlink" title="1. Git 安装"></a>1. Git 安装</h4><p>此前总结过<a href="https://zybuluo.com/ecnu-cyx/note/692971" target="_blank" rel="external">Git的安装和配置过程</a>。</p>
-<h4 id="2-Node-js-安装"><a href="#2-Node-js-安装" class="headerlink" title="2. Node.js 安装"></a>2. Node.js 安装</h4><p>菜鸟教程上有很好的<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">Node.js安装和配置教程</a>。</p>
-<h4 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a>3. Hexo</h4><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds. <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">中文帮助文档</a></p>
-<h3 id="二、Hexo安装与配置"><a href="#二、Hexo安装与配置" class="headerlink" title="二、Hexo安装与配置"></a>二、Hexo安装与配置</h3><h4 id="1-安装Hexo"><a href="#1-安装Hexo" class="headerlink" title="1. 安装Hexo"></a>1. 安装Hexo</h4><p>在任意处打开Git Bash，执行<code>$ npm install -g hexo-cli</code><br>【注：npm命令是集成在新版的node.js中的，可以输入<code>npm -v</code>来查看npm的版本，即node.js的版本，出现版本号说明安装成功。npm可以从服务器下载第三方的包和命令行程序到本地，同样可以将自己写的包和命令行程序上传到NPM服务器上】</p>
-<h4 id="2-创建本地存放博客目录"><a href="#2-创建本地存放博客目录" class="headerlink" title="2. 创建本地存放博客目录"></a>2. 创建本地存放博客目录</h4><p>选择一个本地目录，空白处右键选择Git Bash Here，执行：</p>
+<h3 id="所需材料"><a href="#所需材料" class="headerlink" title="所需材料"></a>所需材料</h3><h4 id="Git-安装"><a href="#Git-安装" class="headerlink" title="Git 安装"></a>Git 安装</h4><p>此前总结过<a href="https://zybuluo.com/ecnu-cyx/note/692971" target="_blank" rel="external">Git的安装和配置过程</a>。</p>
+<h4 id="Node-js-安装"><a href="#Node-js-安装" class="headerlink" title="Node.js 安装"></a>Node.js 安装</h4><p>菜鸟教程上有很好的<a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="external">Node.js安装和配置教程</a>。</p>
+<h4 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h4><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds. <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">中文帮助文档</a></p>
+<h3 id="Hexo安装与配置"><a href="#Hexo安装与配置" class="headerlink" title="Hexo安装与配置"></a>Hexo安装与配置</h3><h4 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h4><p>在任意处打开Git Bash，执行<code>$ npm install -g hexo-cli</code><br>【注：npm命令是集成在新版的node.js中的，可以输入<code>npm -v</code>来查看npm的版本，即node.js的版本，出现版本号说明安装成功。npm可以从服务器下载第三方的包和命令行程序到本地，同样可以将自己写的包和命令行程序上传到NPM服务器上】</p>
+<h4 id="创建本地存放博客目录"><a href="#创建本地存放博客目录" class="headerlink" title="创建本地存放博客目录"></a>创建本地存放博客目录</h4><p>选择一个本地目录，空白处右键选择Git Bash Here，执行：</p>
 <blockquote>
 <ul>
 <li><code>$ hexo init &lt;folder&gt;</code>  #创建目录并初始化</li>
@@ -39,7 +180,7 @@
 </li>
 </ul>
 </blockquote>
-<h4 id="3-启动本地服务"><a href="#3-启动本地服务" class="headerlink" title="3. 启动本地服务"></a>3. 启动本地服务</h4><p>执行以下命令启动本地服务：</p>
+<h4 id="启动本地服务"><a href="#启动本地服务" class="headerlink" title="启动本地服务"></a>启动本地服务</h4><p>执行以下命令启动本地服务：</p>
 <blockquote>
 <ul>
 <li><code>$ hexo generate</code>  #生成静态文件</li>
@@ -47,7 +188,7 @@
 </ul>
 </blockquote>
 <p>如果启动过程中没有报错，此时可以用浏览器访问<code>http://localhost:4000/</code>，会出现一个Hello World的博客页面，hexo使用的默认主题是landscape，而且此时的服务是本地启动的，别人并不能看到。<br>【注：更改本地服务端口命令<code>hexo server -p &lt;port&gt;</code>】</p>
-<h4 id="4-与Github连接"><a href="#4-与Github连接" class="headerlink" title="4. 与Github连接"></a>4. 与Github连接</h4><blockquote>
+<h4 id="与Github连接"><a href="#与Github连接" class="headerlink" title="与Github连接"></a>与Github连接</h4><blockquote>
 <ol>
 <li><p>首先在Github上创建版本库New Repository<br>注意：<strong>repository的名字必须为<code>username.github.io</code>，username即为Github的账户名</strong>，我的个人地址为<code>https://yxcui.github.io</code>，如果将Repository name随意填写，是不能访问的，返回的是404的错误页面。</p>
 </li>
@@ -72,6 +213,27 @@
 </li>
 </ol>
 </blockquote>
+<h4 id="创建和发布文章"><a href="#创建和发布文章" class="headerlink" title="创建和发布文章"></a>创建和发布文章</h4><blockquote>
+<ol>
+<li><p>定位到Hexo文件夹<br> <code>cd d:Hexo</code></p>
+</li>
+<li><p>新建文章<br> <code>hexo new &quot;article title&quot;</code><br> 该文件保存在Source/_post中，该文件是MarkDown文件，可用支持MarkDown编辑的工具进行编写。</p>
+</li>
+<li><p>发布文章<br> <code>hexo g</code><br> <code>hexo d</code><br> 【注：如果出现错误”<code>ERROR Deployer not found : github</code>“，先运行<code>$ npm install hexo-deployer-git --save</code>，再执行上述命令】</p>
+</li>
+<li><p>文章中图片的插入</p>
+<ul>
+<li>修改 _config.yml 文件中的 <code>post\_asset_folder</code>属性，改为<code>true</code>；</li>
+</ul>
+<ul>
+<li>前提需要使用Hexo的一个插件，首先到Hexo的根目录 <code>cd d:Hexo</code>;</li>
+<li>命令：<code>npm install https://github.com/CodeFalling/hexo-asset-image --save</code> / <code>npm install hexo-asset-image --save</code>安装插件;</li>
+<li>然后把图片放入对应文章的配套文件夹下，如图片<code>1.jpg</code>，文中使用的时候即为<code>![](github-hexo-blog/1.jpg)</code>;</li>
+<li>最后主题样式替换路径：<code>/source/css/_partial/highlight.styl</code></li>
+</ul>
+</li>
+</ol>
+</blockquote>
 <h3 id="最后访问"><a href="#最后访问" class="headerlink" title="最后访问"></a>最后访问</h3><p>个人主页：<a href="https://yxcui.github.io">https://yxcui.github.io</a></p>
 ]]></content>
     
@@ -83,6 +245,44 @@
     
     
       <category term="Github" scheme="http://yxcui.github.io/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Remove Invalid Parentheses</title>
+    <link href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/"/>
+    <id>http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/</id>
+    <published>2016-10-20T09:12:44.000Z</published>
+    <updated>2017-08-14T06:12:49.063Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a><strong>写在前面</strong></h3><p>今天跟儿时玩伴乐聊天了解到了<a href="https://leetcode.com/" target="_blank" rel="external">OJ(Online Judge)</a>，简单寒暄几句就是聊工作，本来还是他问我<a href="http://baike.baidu.com/link?url=xgSZX3a852uGeTzsOJr8rB6EX2oP4rO8C5KbqcNTXq-GHxnMoKEZrk5KmtS63g9QuJG6_0HlkOXwJS6h3o64ja" target="_blank" rel="external">GDAL</a>的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作和收获都记录下来，为工作也是为未来铺垫。</p>
+<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a><strong>Question</strong></h3><pre><code>Remove the minimum number of invalid parentheses in order to make the input string valid. And return all possible results.
+</code></pre><h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a><strong>Examples</strong></h3><pre><code>&quot;()())()&quot; -&gt; [&quot;()()()&quot;, &quot;(())()&quot;]
+&quot;(a)())()&quot; -&gt; [&quot;(a)()()&quot;, &quot;(a())()&quot;]
+&quot;)(&quot; -&gt; [&quot;&quot;]
+</code></pre><p><strong>Tag:</strong>     Depth-first Search、Breadth-first Search<br><strong>Similar Problem:</strong> <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="external">Valid Parentheses</a></p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a><strong>Solution</strong></h3><p>From <a href="https://discuss.leetcode.com/topic/28833/short-python-bfs" target="_blank" rel="external">StefanPochmann</a>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_invalid_parentheses</span><span class="params">(s)</span>:</span></div><div class="line">    <span class="comment"># Once the count of ')' is more than '(' first appeared , the cycle will be exit instantly.</span></div><div class="line">    <span class="comment"># But if cycle over normally, the count of '(' is not less than ')'</span></div><div class="line">    <span class="comment"># To judge whether the 's' is valid</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isvalid</span><span class="params">(s)</span>:</span></div><div class="line">        ctr = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> s:</div><div class="line">            <span class="keyword">if</span> c == <span class="string">'('</span>:</div><div class="line">                ctr += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> c == <span class="string">')'</span>:</div><div class="line">                ctr -= <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> ctr &lt; <span class="number">0</span>:</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="comment"># It contains a condition judgment that if ctr is 0 then returns True, or returns False.</span></div><div class="line">        <span class="keyword">return</span> ctr == <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="comment"># Transforming 's' into a Set</span></div><div class="line">    level = &#123;s&#125;</div><div class="line">    i = <span class="number">0</span>   <span class="comment"># To store the cycle count</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        i = i + <span class="number">1</span></div><div class="line">        <span class="comment"># Calling function 'filter' and return a list containing valid results</span></div><div class="line">        valid = filter(isvalid, level)</div><div class="line">        <span class="keyword">if</span> valid:</div><div class="line">            <span class="keyword">print</span> i</div><div class="line">            <span class="keyword">return</span> valid   <span class="comment"># This is the only one exit of this function and return a valid result(List)</span></div><div class="line">        <span class="comment"># 'level' is used to store all possible assembly after removing one invalid parentheses.</span></div><div class="line">        level = &#123;s[:i] + s[i+<span class="number">1</span>:] <span class="keyword">for</span> s <span class="keyword">in</span> level <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s))&#125;</div><div class="line">        <span class="keyword">print</span> level</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    ss = <span class="string">"()()()"</span></div><div class="line">    <span class="comment"># It's used to accept valid results</span></div><div class="line">    valid = remove_invalid_parentheses(ss)</div><div class="line">    <span class="keyword">print</span> valid</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>思路：</strong>首先需要写一个判断函数（isvalid），就是对每个括号组合都需要进行判断，只有在遍历每个括弧时，遍历过程中不能出现’)’的数量比’(‘的数量先多，若有此情况则跳出循环，无需再做后续判断；但是反之是可以的，且在此情况下一直遍历到最后一个括弧符号，当’(‘和’)’的数量相等，则一定是满足条件的括弧组合，也是<strong>唯一的条件</strong>，反之数量不等，即’(‘的数量比’)’的数量多，则也不满足条件。其次要完成移除一个字符，使用了列表生成式<em>s[:i] + s[i+1:] for s in level for i in range(len(s))</em>。最后就是循环对每个移除掉一个字符的括弧组合进行有效性检验，并且返回有效的组合。</p>
+<p><strong>附：</strong></p>
+<blockquote>
+<ol>
+<li>列表生成式的使用，能节省很多的循环的嵌套；</li>
+<li>filter(function, sequence)函数的使用，返回的是满足函数条件的sequence中的元素，并以List/Tuple/string类型返回；</li>
+<li>return ctr==0，该语句既实现了条件判断，也返回了值。</li>
+</ol>
+</blockquote>
+<p><strong>后记：</strong>这个程序自己怎么都想不出来，还是看了别人的代码，然后自己一点一点理解，到今天（10.31日晚）才吃透。看来想学习算法，上来就啃难的不适合我这种智商不够的。<br>自己的理解都写在注释里，感觉蛮凌乱的，后面学习过程中一定要注意注释也要简介，否则篇幅过长也影响程序整体的简洁。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;写在前面&quot;&gt;&lt;a href=&quot;#写在前面&quot; class=&quot;headerlink&quot; title=&quot;写在前面&quot;&gt;&lt;/a&gt;&lt;strong&gt;写在前面&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;今天跟儿时玩伴乐聊天了解到了&lt;a href=&quot;https://leetcode.com/&quot;
+    
+    </summary>
+    
+    
+      <category term="LeetCode" scheme="http://yxcui.github.io/tags/LeetCode/"/>
     
   </entry>
   

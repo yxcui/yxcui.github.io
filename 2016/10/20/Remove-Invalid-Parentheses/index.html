@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="LeetCode," />
 
 
 
@@ -89,16 +89,16 @@
 
 
 
-<meta name="description" content="Life is not a destination, is a journey.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="All tags in this site">
-<meta property="og:url" content="http://yxcui.github.io/tags/index.html">
+<meta name="description" content="写在前面今天跟儿时玩伴乐聊天了解到了OJ(Online Judge)，简单寒暄几句就是聊工作，本来还是他问我GDAL的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Remove Invalid Parentheses">
+<meta property="og:url" content="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/index.html">
 <meta property="og:site_name" content="Yxcui's Little Stack">
-<meta property="og:description" content="Life is not a destination, is a journey.">
-<meta property="og:updated_time" content="2017-03-21T02:53:49.500Z">
+<meta property="og:description" content="写在前面今天跟儿时玩伴乐聊天了解到了OJ(Online Judge)，简单寒暄几句就是聊工作，本来还是他问我GDAL的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作">
+<meta property="og:updated_time" content="2017-08-14T06:12:49.063Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="All tags in this site">
-<meta name="twitter:description" content="Life is not a destination, is a journey.">
+<meta name="twitter:title" content="Remove Invalid Parentheses">
+<meta name="twitter:description" content="写在前面今天跟儿时玩伴乐聊天了解到了OJ(Online Judge)，简单寒暄几句就是聊工作，本来还是他问我GDAL的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作">
 
 
 
@@ -126,19 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yxcui.github.io/tags/"/>
+  <link rel="canonical" href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/"/>
 
 
 
 
 
-  <title>
-  
-
-  
-    All tags in this site | Yxcui's Little Stack
-  
-</title>
+  <title> Remove Invalid Parentheses | Yxcui's Little Stack </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -173,7 +167,11 @@
 			});
 
 			
+				VK.Widgets.Like("vk_like", {type: "mini", height: 20});
+			
 
+			
+				VK.Widgets.Comments("vk_comments", {limit: 10, attach: "*"});
 			
 		};
 		setTimeout(function() {
@@ -203,7 +201,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -330,25 +328,201 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">All tags in this site</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yxcui">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yxcui's Little Stack">
+    </span>
 
     
-    
-      <div class="tag-cloud">
-        <div class="tag-cloud-title">
-            3 tags in total
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Remove Invalid Parentheses
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-20T17:12:44+08:00">
+                2016-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/10/20/Remove-Invalid-Parentheses/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/10/20/Remove-Invalid-Parentheses/" class="leancloud_visitors" data-flag-title="Remove Invalid Parentheses">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
         </div>
-        <div class="tag-cloud-tags">
-          <a href="/tags/GIS/" style="font-size: 12px; color: #ccc">GIS</a> <a href="/tags/Github/" style="font-size: 30px; color: #111">Github</a> <a href="/tags/LeetCode/" style="font-size: 30px; color: #111">LeetCode</a>
-        </div>
-      </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a><strong>写在前面</strong></h3><p>今天跟儿时玩伴乐聊天了解到了<a href="https://leetcode.com/" target="_blank" rel="external">OJ(Online Judge)</a>，简单寒暄几句就是聊工作，本来还是他问我<a href="http://baike.baidu.com/link?url=xgSZX3a852uGeTzsOJr8rB6EX2oP4rO8C5KbqcNTXq-GHxnMoKEZrk5KmtS63g9QuJG6_0HlkOXwJS6h3o64ja" target="_blank" rel="external">GDAL</a>的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作和收获都记录下来，为工作也是为未来铺垫。</p>
+<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a><strong>Question</strong></h3><pre><code>Remove the minimum number of invalid parentheses in order to make the input string valid. And return all possible results.
+</code></pre><h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a><strong>Examples</strong></h3><pre><code>&quot;()())()&quot; -&gt; [&quot;()()()&quot;, &quot;(())()&quot;]
+&quot;(a)())()&quot; -&gt; [&quot;(a)()()&quot;, &quot;(a())()&quot;]
+&quot;)(&quot; -&gt; [&quot;&quot;]
+</code></pre><p><strong>Tag:</strong>     Depth-first Search、Breadth-first Search<br><strong>Similar Problem:</strong> <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="external">Valid Parentheses</a></p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a><strong>Solution</strong></h3><p>From <a href="https://discuss.leetcode.com/topic/28833/short-python-bfs" target="_blank" rel="external">StefanPochmann</a>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_invalid_parentheses</span><span class="params">(s)</span>:</span></div><div class="line">    <span class="comment"># Once the count of ')' is more than '(' first appeared , the cycle will be exit instantly.</span></div><div class="line">    <span class="comment"># But if cycle over normally, the count of '(' is not less than ')'</span></div><div class="line">    <span class="comment"># To judge whether the 's' is valid</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isvalid</span><span class="params">(s)</span>:</span></div><div class="line">        ctr = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> s:</div><div class="line">            <span class="keyword">if</span> c == <span class="string">'('</span>:</div><div class="line">                ctr += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> c == <span class="string">')'</span>:</div><div class="line">                ctr -= <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> ctr &lt; <span class="number">0</span>:</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="comment"># It contains a condition judgment that if ctr is 0 then returns True, or returns False.</span></div><div class="line">        <span class="keyword">return</span> ctr == <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="comment"># Transforming 's' into a Set</span></div><div class="line">    level = &#123;s&#125;</div><div class="line">    i = <span class="number">0</span>   <span class="comment"># To store the cycle count</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        i = i + <span class="number">1</span></div><div class="line">        <span class="comment"># Calling function 'filter' and return a list containing valid results</span></div><div class="line">        valid = filter(isvalid, level)</div><div class="line">        <span class="keyword">if</span> valid:</div><div class="line">            <span class="keyword">print</span> i</div><div class="line">            <span class="keyword">return</span> valid   <span class="comment"># This is the only one exit of this function and return a valid result(List)</span></div><div class="line">        <span class="comment"># 'level' is used to store all possible assembly after removing one invalid parentheses.</span></div><div class="line">        level = &#123;s[:i] + s[i+<span class="number">1</span>:] <span class="keyword">for</span> s <span class="keyword">in</span> level <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s))&#125;</div><div class="line">        <span class="keyword">print</span> level</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    ss = <span class="string">"()()()"</span></div><div class="line">    <span class="comment"># It's used to accept valid results</span></div><div class="line">    valid = remove_invalid_parentheses(ss)</div><div class="line">    <span class="keyword">print</span> valid</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>思路：</strong>首先需要写一个判断函数（isvalid），就是对每个括号组合都需要进行判断，只有在遍历每个括弧时，遍历过程中不能出现’)’的数量比’(‘的数量先多，若有此情况则跳出循环，无需再做后续判断；但是反之是可以的，且在此情况下一直遍历到最后一个括弧符号，当’(‘和’)’的数量相等，则一定是满足条件的括弧组合，也是<strong>唯一的条件</strong>，反之数量不等，即’(‘的数量比’)’的数量多，则也不满足条件。其次要完成移除一个字符，使用了列表生成式<em>s[:i] + s[i+1:] for s in level for i in range(len(s))</em>。最后就是循环对每个移除掉一个字符的括弧组合进行有效性检验，并且返回有效的组合。</p>
+<p><strong>附：</strong></p>
+<blockquote>
+<ol>
+<li>列表生成式的使用，能节省很多的循环的嵌套；</li>
+<li>filter(function, sequence)函数的使用，返回的是满足函数条件的sequence中的元素，并以List/Tuple/string类型返回；</li>
+<li>return ctr==0，该语句既实现了条件判断，也返回了值。</li>
+</ol>
+</blockquote>
+<p><strong>后记：</strong>这个程序自己怎么都想不出来，还是看了别人的代码，然后自己一点一点理解，到今天（10.31日晚）才吃透。看来想学习算法，上来就啃难的不适合我这种智商不够的。<br>自己的理解都写在注释里，感觉蛮凌乱的，后面学习过程中一定要注意注释也要简介，否则篇幅过长也影响程序整体的简洁。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+        </div>
+      
+
+      
+        
+          <div class="social-like">
+            
+              <div class="vk_like">
+                <span id="vk_like"></span>
+              </div>
+            
+
+            
+          </div>
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/03/Github+Hexo搭建博客网站---基础环境/" rel="prev" title="Github+Hexo搭建博客网站---基础环境">
+                Github+Hexo搭建博客网站---基础环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
           
@@ -357,6 +531,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="fb-comments"
+           data-href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/"
+           data-numposts="10"
+           data-width="100%"
+           data-colorscheme="light">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -376,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -455,6 +649,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Question"><span class="nav-number">2.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Examples"><span class="nav-number">3.</span> <span class="nav-text">Examples</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">4.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -583,6 +793,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
