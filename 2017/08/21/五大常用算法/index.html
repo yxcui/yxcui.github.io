@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LeetCode," />
+  <meta name="keywords" content="algorithms," />
 
 
 
@@ -89,16 +89,37 @@
 
 
 
-<meta name="description" content="写在前面今天跟儿时玩伴乐聊天了解到了OJ(Online Judge)，简单寒暄几句就是聊工作，本来还是他问我GDAL的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作">
+<meta name="description" content="【来源】
+1.分治算法把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……，这样不断分解，直到最后的子问题可以简单的直接求解，而初始问题的解是子问题解的合并。应用基础：排序算法（快速排序、归并排序），傅里叶变换（快速傅里叶变换）……
+基本思路分治 + 递归两种方法一般同时出现在问题的求解中。
+适用情况问题特征：
+
+
+问题分解到一定的程度就可以较为容易解决；
+问题可以分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Remove Invalid Parentheses">
-<meta property="og:url" content="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/index.html">
+<meta property="og:title" content="五大常用算法">
+<meta property="og:url" content="http://yxcui.github.io/2017/08/21/五大常用算法/index.html">
 <meta property="og:site_name" content="Yxcui's Little Stack">
-<meta property="og:description" content="写在前面今天跟儿时玩伴乐聊天了解到了OJ(Online Judge)，简单寒暄几句就是聊工作，本来还是他问我GDAL的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作">
-<meta property="og:updated_time" content="2017-08-14T06:12:49.063Z">
+<meta property="og:description" content="【来源】
+1.分治算法把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……，这样不断分解，直到最后的子问题可以简单的直接求解，而初始问题的解是子问题解的合并。应用基础：排序算法（快速排序、归并排序），傅里叶变换（快速傅里叶变换）……
+基本思路分治 + 递归两种方法一般同时出现在问题的求解中。
+适用情况问题特征：
+
+
+问题分解到一定的程度就可以较为容易解决；
+问题可以分">
+<meta property="og:updated_time" content="2017-08-21T08:24:34.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Remove Invalid Parentheses">
-<meta name="twitter:description" content="写在前面今天跟儿时玩伴乐聊天了解到了OJ(Online Judge)，简单寒暄几句就是聊工作，本来还是他问我GDAL的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作">
+<meta name="twitter:title" content="五大常用算法">
+<meta name="twitter:description" content="【来源】
+1.分治算法把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……，这样不断分解，直到最后的子问题可以简单的直接求解，而初始问题的解是子问题解的合并。应用基础：排序算法（快速排序、归并排序），傅里叶变换（快速傅里叶变换）……
+基本思路分治 + 递归两种方法一般同时出现在问题的求解中。
+适用情况问题特征：
+
+
+问题分解到一定的程度就可以较为容易解决；
+问题可以分">
 
 
 
@@ -126,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/"/>
+  <link rel="canonical" href="http://yxcui.github.io/2017/08/21/五大常用算法/"/>
 
 
 
 
 
-  <title> Remove Invalid Parentheses | Yxcui's Little Stack </title>
+  <title> 五大常用算法 | Yxcui's Little Stack </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -337,7 +358,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/">
+    <link itemprop="mainEntityOfPage" href="http://yxcui.github.io/2017/08/21/五大常用算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yxcui">
@@ -358,7 +379,7 @@
             
             
               
-                Remove Invalid Parentheses
+                五大常用算法
               
             
           </h1>
@@ -373,8 +394,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-20T17:12:44+08:00">
-                2016-10-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T14:14:32+08:00">
+                2017-08-21
               </time>
             
 
@@ -392,8 +413,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2016/10/20/Remove-Invalid-Parentheses/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/" itemprop="commentCount">0</span> comments
+                <a href="/2017/08/21/五大常用算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://yxcui.github.io/2017/08/21/五大常用算法/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -401,7 +422,7 @@
 
           
           
-             <span id="/2016/10/20/Remove-Invalid-Parentheses/" class="leancloud_visitors" data-flag-title="Remove Invalid Parentheses">
+             <span id="/2017/08/21/五大常用算法/" class="leancloud_visitors" data-flag-title="五大常用算法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,24 +456,83 @@
       
 
       
-        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a><strong>写在前面</strong></h3><p>今天跟儿时玩伴乐聊天了解到了<a href="https://leetcode.com/" target="_blank" rel="external">OJ(Online Judge)</a>，简单寒暄几句就是聊工作，本来还是他问我<a href="http://baike.baidu.com/link?url=xgSZX3a852uGeTzsOJr8rB6EX2oP4rO8C5KbqcNTXq-GHxnMoKEZrk5KmtS63g9QuJG6_0HlkOXwJS6h3o64ja" target="_blank" rel="external">GDAL</a>的，我也是第一次听说，待后续继续了解。从聊天中我收获的就是除了OJ之外，还有就是应该对自己平常的工作有一总结，不管有没有人看，都把它记录下来，一直就觉得这个习惯还是蛮重要的，知识不总结很快就容易遗忘，所以今晚开始（2016/10/20晚22:00）尽可能坚持这种习惯，并要将之前的工作和收获都记录下来，为工作也是为未来铺垫。</p>
-<h3 id="Question"><a href="#Question" class="headerlink" title="Question"></a><strong>Question</strong></h3><pre><code>Remove the minimum number of invalid parentheses in order to make the input string valid. And return all possible results.
-</code></pre><h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a><strong>Examples</strong></h3><pre><code>&quot;()())()&quot; -&gt; [&quot;()()()&quot;, &quot;(())()&quot;]
-&quot;(a)())()&quot; -&gt; [&quot;(a)()()&quot;, &quot;(a())()&quot;]
-&quot;)(&quot; -&gt; [&quot;&quot;]
-</code></pre><p><strong>Tag:</strong>     Depth-first Search、Breadth-first Search<br><strong>Similar Problem:</strong> <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" rel="external">Valid Parentheses</a></p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a><strong>Solution</strong></h3><p>From <a href="https://discuss.leetcode.com/topic/28833/short-python-bfs" target="_blank" rel="external">StefanPochmann</a>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_invalid_parentheses</span><span class="params">(s)</span>:</span></div><div class="line">    <span class="comment"># Once the count of ')' is more than '(' first appeared , the cycle will be exit instantly.</span></div><div class="line">    <span class="comment"># But if cycle over normally, the count of '(' is not less than ')'</span></div><div class="line">    <span class="comment"># To judge whether the 's' is valid</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isvalid</span><span class="params">(s)</span>:</span></div><div class="line">        ctr = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> s:</div><div class="line">            <span class="keyword">if</span> c == <span class="string">'('</span>:</div><div class="line">                ctr += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> c == <span class="string">')'</span>:</div><div class="line">                ctr -= <span class="number">1</span></div><div class="line">                <span class="keyword">if</span> ctr &lt; <span class="number">0</span>:</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="comment"># It contains a condition judgment that if ctr is 0 then returns True, or returns False.</span></div><div class="line">        <span class="keyword">return</span> ctr == <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="comment"># Transforming 's' into a Set</span></div><div class="line">    level = &#123;s&#125;</div><div class="line">    i = <span class="number">0</span>   <span class="comment"># To store the cycle count</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        i = i + <span class="number">1</span></div><div class="line">        <span class="comment"># Calling function 'filter' and return a list containing valid results</span></div><div class="line">        valid = filter(isvalid, level)</div><div class="line">        <span class="keyword">if</span> valid:</div><div class="line">            <span class="keyword">print</span> i</div><div class="line">            <span class="keyword">return</span> valid   <span class="comment"># This is the only one exit of this function and return a valid result(List)</span></div><div class="line">        <span class="comment"># 'level' is used to store all possible assembly after removing one invalid parentheses.</span></div><div class="line">        level = &#123;s[:i] + s[i+<span class="number">1</span>:] <span class="keyword">for</span> s <span class="keyword">in</span> level <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s))&#125;</div><div class="line">        <span class="keyword">print</span> level</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    ss = <span class="string">"()()()"</span></div><div class="line">    <span class="comment"># It's used to accept valid results</span></div><div class="line">    valid = remove_invalid_parentheses(ss)</div><div class="line">    <span class="keyword">print</span> valid</div></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>思路：</strong>首先需要写一个判断函数（isvalid），就是对每个括号组合都需要进行判断，只有在遍历每个括弧时，遍历过程中不能出现’)’的数量比’(‘的数量先多，若有此情况则跳出循环，无需再做后续判断；但是反之是可以的，且在此情况下一直遍历到最后一个括弧符号，当’(‘和’)’的数量相等，则一定是满足条件的括弧组合，也是<strong>唯一的条件</strong>，反之数量不等，即’(‘的数量比’)’的数量多，则也不满足条件。其次要完成移除一个字符，使用了列表生成式<em>s[:i] + s[i+1:] for s in level for i in range(len(s))</em>。最后就是循环对每个移除掉一个字符的括弧组合进行有效性检验，并且返回有效的组合。</p>
-<p><strong>附：</strong></p>
+        <p>【<a href="http://www.cnblogs.com/steven_oyj/" target="_blank" rel="external">来源</a>】</p>
+<h3 id="1-分治算法"><a href="#1-分治算法" class="headerlink" title="1.分治算法"></a>1.分治算法</h3><p>把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……，这样不断分解，直到最后的子问题可以简单的直接求解，而初始问题的解是子问题解的合并。<br>应用基础：排序算法（快速排序、归并排序），傅里叶变换（快速傅里叶变换）……</p>
+<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><p>分治 + <strong>递归</strong><br>两种方法一般同时出现在问题的求解中。</p>
+<h4 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h4><p>问题特征：</p>
 <blockquote>
 <ol>
-<li>列表生成式的使用，能节省很多的循环的嵌套；</li>
-<li>filter(function, sequence)函数的使用，返回的是满足函数条件的sequence中的元素，并以List/Tuple/string类型返回；</li>
-<li>return ctr==0，该语句既实现了条件判断，也返回了值。</li>
+<li>问题分解到一定的程度就可以较为容易解决；</li>
+<li>问题可以分解为若干个规模较小的相同问题，即最优子结构；<font color="red">（前提）</font></li>
+<li>问题的子问题的解 <strong>可以合并</strong> 为该原始问题的解；<font color="red">（关键）</font></li>
+<li>分解的各子问题是相互独立的，即子问题之间不存在交集。</li>
 </ol>
 </blockquote>
-<p><strong>后记：</strong>这个程序自己怎么都想不出来，还是看了别人的代码，然后自己一点一点理解，到今天（10.31日晚）才吃透。看来想学习算法，上来就啃难的不适合我这种智商不够的。<br>自己的理解都写在注释里，感觉蛮凌乱的，后面学习过程中一定要注意注释也要简介，否则篇幅过长也影响程序整体的简洁。</p>
+<p><strong>说明</strong>：如果3/4不能满足，则考虑用 贪心法或动态规划。</p>
+<h4 id="经典问题"><a href="#经典问题" class="headerlink" title="经典问题"></a>经典问题</h4><blockquote>
+<ul>
+<li>二分搜索</li>
+<li>大整数乘法</li>
+<li>Strassen矩阵乘法</li>
+<li>棋盘覆盖</li>
+<li>合并排序</li>
+<li>快速排序</li>
+<li>线性时间选择</li>
+<li>最接近点对问题</li>
+<li>循环赛日程表</li>
+<li>汉诺塔</li>
+</ul>
+</blockquote>
+<h3 id="2-贪心算法"><a href="#2-贪心算法" class="headerlink" title="2.贪心算法"></a>2.贪心算法</h3><p>对某个问题的求解，是 <strong>当前</strong> 状态下最好的选择，即不考虑整体最优，仅是在某种意义上的局部最优解。<br>贪心策略必须具备<a href="https://baike.baidu.com/item/无后效性/1135283?fr=aladdin" target="_blank" rel="external">无后效性</a>，即某个状态以后的过程不会影响以前的状态，只与当前的状态有关。</p>
+<h4 id="基本思路-1"><a href="#基本思路-1" class="headerlink" title="基本思路"></a>基本思路</h4><blockquote>
+<ol>
+<li>将一个问题转换为数学模型；</li>
+<li>将原始问题分解为若干个子问题；</li>
+<li>针对每个子问题求解，即局部最优解；</li>
+<li>把各子问题的局部最优解合并为原始问题的一个解。</li>
+</ol>
+</blockquote>
+<h4 id="适用情况-1"><a href="#适用情况-1" class="headerlink" title="适用情况"></a>适用情况</h4><p><strong>前提</strong>：局部最优解可以得到全局最优解<br>但，适用情况很少。<br>是否使用：选择该问题的实际数据进行分析。</p>
+<h3 id="3-动态规划"><a href="#3-动态规划" class="headerlink" title="3.动态规划"></a>3.动态规划</h3><p>每次的决策依赖于当前的状态，对随后的状态也会产生影响，随后的状态不会影响以前的状态，即决策序列是在变化的状态中产生出来的，即求解是多阶段的最优化决策问题。</p>
+<h4 id="基本思路-2"><a href="#基本思路-2" class="headerlink" title="基本思路"></a>基本思路</h4><p>与分治法类似，将待求解的问题分解为若干个子问题（阶段），按顺序求解子阶段，前一阶段的解为后一阶段提供了有用信息。<br>在求解任一阶段时，列出各种可能达到最优的局部解，丢弃其它局部解…… 依次解决各子问题，最后一个子问题为初始状态的解。</p>
+<p><font>特点</font>：原始问题分解后的子问题是不相互独立的，即下一阶段的求解是建立在上一阶段局部最优解基础上的。</p>
+<h4 id="适用情况-2"><a href="#适用情况-2" class="headerlink" title="适用情况"></a>适用情况</h4><p>满足的3个条件：</p>
+<blockquote>
+<ol>
+<li>最优化原理：原始问题的最优解包含的子问题的解也是最优的；</li>
+<li>无后效性：某个状态一旦确定，不会受以后状态决策的影响，即以后的过程不会影响以前的状态；</li>
+<li>有重叠子问题：即子问题之间不是独立的，一个子问题在下一阶段决策中可能被多次使用到。（<font color="red">非必要条件，但是是动态规划的优势</font>）</li>
+</ol>
+</blockquote>
+<h4 id="求解过程"><a href="#求解过程" class="headerlink" title="求解过程"></a>求解过程</h4><blockquote>
+<ol>
+<li>划分阶段：按照问题的时间或空间特征，把问题分解为若干个阶段。<strong>注</strong>：划分后的阶段一定是有序或可排序的。</li>
+<li>确定状态和状态变量：将问题到各个阶段时所处的客观情况用不同的状态表示出来。</li>
+<li>确定决策并写出状态转移方程：决策与状态转移有联系，状态转移是根据上一阶段的状态和决策来导出本阶段的状态，但是一般情况是根据相邻两个状态之间的关系来确定 决策方法和转移方程。</li>
+<li>寻找边界条件：给出的状态转移方程是一个递推式，需要一个递推的终止条件或边界条件。</li>
+</ol>
+</blockquote>
+<p>最优决策表：一个二维表，行表示决策的阶段，列表示问题的状态，即表格的值是在某个阶段某个状态下的最优值（最短路径、最大价值、最长公共子序列等）。</p>
+<h3 id="4-回溯算法"><a href="#4-回溯算法" class="headerlink" title="4.回溯算法"></a>4.回溯算法</h3><p>回溯法类似于枚举，主要是在搜索尝试过程中寻找问题的解，当到达某一步时，发现原先选择的不是最优或达不到目标，就退回一步重新选择。</p>
+<blockquote>
+<ul>
+<li>所有解：回溯到根节点，且根节点的所有可行的子树都要被遍历过才结束；</li>
+<li>任一解：在搜索过程中 找到问题的一个解就可以结束。</li>
+</ul>
+</blockquote>
+<h4 id="一般步骤"><a href="#一般步骤" class="headerlink" title="一般步骤"></a>一般步骤</h4><blockquote>
+<ol>
+<li>针对所给问题，确定问题的解空间<ul>
+<li>首先明确定义问题的解空间，该解空间至少应该包含问题的一个（最优）解；</li>
+</ul>
+</li>
+<li>确定节点的扩展搜索规则；</li>
+<li>以 <strong>深度优先方式搜索</strong> 解空间（递归函数），并在搜索过程中用剪枝函数避免无效搜索。</li>
+</ol>
+</blockquote>
+<h3 id="5-分支限界"><a href="#5-分支限界" class="headerlink" title="5.分支限界"></a>5.分支限界</h3><p>类似于回溯法，也是在问题的解空间树T上搜索问题解的算法。<br>但两者的求解目标不同，分支限界法的求解目标是找出满足约束条件的一个解，或是在满足约束条件的解中找出使某一个目标函数值达到极大或极小的解，即在某种意义上的最优解。</p>
+<h4 id="一般过程"><a href="#一般过程" class="headerlink" title="一般过程"></a>一般过程</h4><p>分支限界法以 <strong>广度优先或以最小耗费优先</strong> 的方式搜索解空间树T。<br><strong>搜索策略</strong>：在扩展结点处，先生成其所有的儿子结点（分支），然后再从当前的活结点表中选择下一个扩展结点。为了有效地选择下一扩展结点，以加速搜索的进程，在每一活结点处，计算一个函数值（限界），并根据这些已计算出的函数值，从当前活结点表中选择一个最有利的结点作为扩展结点，使搜索朝着解空间树上有最优解的分支推进，以便尽快地找出一个最优解。</p>
+<p>分支限界法常以广度优先或以最小耗费（最大效益）优先的方式搜索问题的解空间树，问题的解空间树是表示问题解空间的一棵有序树，常见的有子集树和排列树。在扩展结点的时候，每一个活结点只有一次机会成为扩展结点，活结点一旦成为扩展结点，就一次性产生其所有儿子结点，在这些儿子结点中，那些导致不可行解或导致非最优解的儿子结点被舍弃，其余儿子结点被加入活结点表中。此后，从活结点表中取下一结点成为当前扩展结点，并重复上述结点扩展过程。这个过程一直持续到找到所求的解或活结点表为空时为止。</p>
 
       
     </div>
@@ -476,7 +556,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+            <a href="/tags/algorithms/" rel="tag"># algorithms</a>
           
         </div>
       
@@ -499,14 +579,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/16/Baidu-Geocoding/" rel="next" title="Baidu Geocoding">
+                <i class="fa fa-chevron-left"></i> Baidu Geocoding
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/03/Github+Hexo搭建博客网站---基础环境/" rel="prev" title="Github+Hexo搭建博客网站---基础环境">
-                Github+Hexo搭建博客网站---基础环境 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/21/Step-Stones/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -534,7 +618,7 @@
   <div class="comments" id="comments">
     
       <div class="fb-comments"
-           data-href="http://yxcui.github.io/2016/10/20/Remove-Invalid-Parentheses/"
+           data-href="http://yxcui.github.io/2017/08/21/五大常用算法/"
            data-numposts="10"
            data-width="100%"
            data-colorscheme="light">
@@ -659,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Question"><span class="nav-number">2.</span> <span class="nav-text">Question</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Examples"><span class="nav-number">3.</span> <span class="nav-text">Examples</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">4.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-分治算法"><span class="nav-number">1.</span> <span class="nav-text">1.分治算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本思路"><span class="nav-number">1.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适用情况"><span class="nav-number">1.2.</span> <span class="nav-text">适用情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#经典问题"><span class="nav-number">1.3.</span> <span class="nav-text">经典问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-贪心算法"><span class="nav-number">2.</span> <span class="nav-text">2.贪心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本思路-1"><span class="nav-number">2.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适用情况-1"><span class="nav-number">2.2.</span> <span class="nav-text">适用情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-动态规划"><span class="nav-number">3.</span> <span class="nav-text">3.动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本思路-2"><span class="nav-number">3.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#适用情况-2"><span class="nav-number">3.2.</span> <span class="nav-text">适用情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求解过程"><span class="nav-number">3.3.</span> <span class="nav-text">求解过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-回溯算法"><span class="nav-number">4.</span> <span class="nav-text">4.回溯算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一般步骤"><span class="nav-number">4.1.</span> <span class="nav-text">一般步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-分支限界"><span class="nav-number">5.</span> <span class="nav-text">5.分支限界</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一般过程"><span class="nav-number">5.1.</span> <span class="nav-text">一般过程</span></a></li></ol></li></ol></div>
             
 
           </div>

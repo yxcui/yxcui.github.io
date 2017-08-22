@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="algorithms," />
 
 
 
@@ -89,16 +89,19 @@
 
 
 
-<meta name="description" content="Life is not a destination, is a journey.">
+<meta name="description" content="跳石板，这是网易校招的一道编程题，很显然这是一个最优化的问题，由于在平常也没真正练习这些经典算法题，所以拿到题目手足无措，一开始的思路就是递归，递归是能够找到最小值，但是效率好像不理想，很显然自己搞不下去了，忽视了核心问题就是分解后的子问题不是相互独立的，而是互相有关联的。算法基础是动态规划，这是常用的最优化算法之一。递归与动态规划小结不错~
+题目描述小易来到了一条石板路前，每块石板上从1挨着编号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Step Stones">
 <meta property="og:url" content="http://yxcui.github.io/2017/08/13/Step-Stones/index.html">
 <meta property="og:site_name" content="Yxcui's Little Stack">
-<meta property="og:description" content="Life is not a destination, is a journey.">
-<meta property="og:updated_time" content="2017-08-14T06:12:49.063Z">
+<meta property="og:description" content="跳石板，这是网易校招的一道编程题，很显然这是一个最优化的问题，由于在平常也没真正练习这些经典算法题，所以拿到题目手足无措，一开始的思路就是递归，递归是能够找到最小值，但是效率好像不理想，很显然自己搞不下去了，忽视了核心问题就是分解后的子问题不是相互独立的，而是互相有关联的。算法基础是动态规划，这是常用的最优化算法之一。递归与动态规划小结不错~
+题目描述小易来到了一条石板路前，每块石板上从1挨着编号">
+<meta property="og:updated_time" content="2017-08-22T05:19:18.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Step Stones">
-<meta name="twitter:description" content="Life is not a destination, is a journey.">
+<meta name="twitter:description" content="跳石板，这是网易校招的一道编程题，很显然这是一个最优化的问题，由于在平常也没真正练习这些经典算法题，所以拿到题目手足无措，一开始的思路就是递归，递归是能够找到最小值，但是效率好像不理想，很显然自己搞不下去了，忽视了核心问题就是分解后的子问题不是相互独立的，而是互相有关联的。算法基础是动态规划，这是常用的最优化算法之一。递归与动态规划小结不错~
+题目描述小易来到了一条石板路前，每块石板上从1挨着编号">
 
 
 
@@ -435,7 +438,24 @@
       
 
       
-        
+        <p>跳石板，这是网易校招的一道编程题，很显然这是一个最优化的问题，由于在平常也没真正练习这些经典算法题，所以拿到题目手足无措，一开始的思路就是递归，递归是能够找到最小值，但是效率好像不理想，很显然自己搞不下去了，忽视了核心问题就是分解后的子问题不是相互独立的，而是互相有关联的。<br>算法基础是<font color="red">动态规划</font>，这是常用的最优化算法之一。<br><a href="http://blog.csdn.net/deepit/article/details/6530282" target="_blank" rel="external">递归与动态规划小结不错</a>~</p>
+<h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>小易来到了一条石板路前，每块石板上从1挨着编号为：1、2、3…….<br>这条石板路要根据特殊的规则才能前进：对于小易当前所在的编号为K的 石板，小易单次只能往前跳K的一个约数(不含1和K)步，即跳到K+X(X为K的一个非1和本身的约数)的位置。 小易当前处在编号为N的石板，他想跳到编号恰好为M的石板去，小易想知道最少需要跳跃几次可以到达。<br>示例：<br>N = 4，M = 24：<br>4-&gt;6-&gt;8-&gt;12-&gt;18-&gt;24<br>于是小易最少需要跳跃5次，就可以从4号石板跳到24号石板 </p>
+<p><strong>输入描述</strong>：<br>输入为一行，有两个整数N，M，以空格隔开。<br>(4 ≤ N ≤ 100000)<br>(N ≤ M ≤ 100000)<br><strong>输出描述</strong>：<br>输出小易最少需要跳跃的步数,如果不能到达输出-1</p>
+<p><strong>输入例子</strong>：<br>4 24<br><strong>输出例子</strong>：<br>5</p>
+<h3 id="分析思路"><a href="#分析思路" class="headerlink" title="分析思路"></a>分析思路</h3><p>算法基础是动态规划，那么一般过程就是将原始问题划分为若干个子问题，但是子问题之间不是独立存在的。即上一子问题的解会影响下一步子问题的解，因此需要创建一个链表，将每个子问题的解存入，然后组合出原始问题的最优解。核心是状态转移公式。</p>
+<blockquote>
+<p>1.创建一维数组，用于存储从起点到达改点的最小跳跃次数；<br>    – 初试起点为0，其它元素均为int最大值，用来表示不可达</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># init a dictionary to store the count</span></div><div class="line"><span class="keyword">import</span> sys</div><div class="line">stone = &#123;&#125;</div><div class="line">stone[N] = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(N+<span class="number">1</span>, M+<span class="number">1</span>):</div><div class="line">    stone[i] = sys.maxint   <span class="comment"># the maximum int</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>2.遍历每一块石板，然后求解当前石板的约数（列表），针对每个约数可以求解从当前石板可以到达的石板编号，且能够获取从当前石板到达的石板的跳跃次数；<br>    – <font color="red">后一步石板最小跳跃次数求解</font>：如果后一步的石板次数是初始化的最大值，则在当前石板达到的跳跃次数基础上加1，否则与后一步石板的跳跃次数做比较，求两者中的最小者；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> N == M:</div><div class="line">        <span class="keyword">return</span> stone[M]</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="comment"># 针对每一个石块，计算其能到达的石块，然后每个石块都保留了到达此处需要的步数，每次遍历都保留最小值，即最少需要的步数</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(N, M+<span class="number">1</span>):</div><div class="line">            divisors = calDivisors(i)</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> divisors:</div><div class="line">                <span class="keyword">if</span> i + j &lt;= M:</div><div class="line">                    stone[i + j] = min(stone[i] + <span class="number">1</span>, stone[i + j])</div></pre></td></tr></table></figure></p>
+<p>附：求解一个数的所有约数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># calculate all divisors without 1 and self for a given number in the natural range</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calDivisors</span><span class="params">(N)</span>:</span></div><div class="line">    divisors = []</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, int(N / <span class="number">2.0</span>)+<span class="number">1</span>):   <span class="comment"># 此处如果是sqrt(N)， 应该求解的不是所有约数？</span></div><div class="line">        <span class="keyword">if</span> N % i == <span class="number">0</span>:</div><div class="line">            divisors.append(i)</div><div class="line">    <span class="comment"># divisors.append(N)</span></div><div class="line">    <span class="keyword">return</span> divisors</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="保留完整路径"><a href="#保留完整路径" class="headerlink" title="保留完整路径"></a>保留完整路径</h3><p>以上是能够找到从一个石板调到另外一个石板的最小跳跃次数，但是有时候希望能够保留这个最小路径，即跳跃过程是怎样的？所以需要对上述过程进行略微修改~</p>
+<p>在进行跳跃次数计数的后面紧接着记录调到下一个石板的这一块石板编号，这样就记录了一个连续的过程，即记录了跳到某块石板的前一块石板编号，如“24：18”，即跳到编号为24的石板的前一块石板编号是18。<br>所以增加一行代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">stoneIndex.append(str(i+j) + <span class="string">"："</span> + str(i))   <span class="comment"># 存储到达 i+j 石块的石块编号</span></div></pre></td></tr></table></figure></p>
+<p>打印输出：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> <span class="string">";  "</span>.join(stoneIndex)</div></pre></td></tr></table></figure></p>
+<p>输出结果为：<br><code>6：4;  8：6;  9：6;  10：8;  12：8;  12：9;  12：10;  15：10;  14：12;  15：12;  16：12;  18：12;  16：14;  21：14;  18：15;  20：15;  18：16;  20：16;  24：16;  20：18;  21：18;  24：18;  22：20;  24：20;  24：21;  24：22</code><br>其中只有一条可以最少跳跃数完成：<br><code>4 -&gt; 6 -&gt; 8 -&gt; 12 -&gt; 18 -&gt; 24</code></p>
+
       
     </div>
 
@@ -455,6 +475,12 @@
 
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algorithms/" rel="tag"># algorithms</a>
+          
+        </div>
       
 
       
@@ -541,8 +567,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -557,7 +592,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -568,7 +603,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -620,6 +655,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析思路"><span class="nav-number">2.</span> <span class="nav-text">分析思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保留完整路径"><span class="nav-number">3.</span> <span class="nav-text">保留完整路径</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
