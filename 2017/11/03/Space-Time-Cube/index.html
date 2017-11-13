@@ -89,24 +89,49 @@
 
 
 
-<meta name="description" content="[TOC]
-有话说在当前的大数据和人工智能的浪潮下，铺天盖地都是数据挖掘、机器学习和人工智能，基础就是数据，就像在地理信息领域一直说的一句话 “数据是GIS的血液”，那么推广到现在的人工智能，大数据就是人工智能的血液，没有数据就无从谈起人工智能。
-在地理信息领域，一直存在的一个关键词就是（反）地理编码，地理编码是较为常用的一项地理信息技术，现在很多对于大量关于位置的信息都是存储为地址的形式，例如">
+<meta name="description" content="传统的空间聚类模式识别是基于一个空间聚类分析来识别具有统计显著性的热点、冷点和空间异常值的位置。
+空间关系建模基础概念注意事项:
+
+
+空间统计中基于欧氏距离或曼哈顿距离来度量距离，总是针对投影数据来进行的操作，所以在运用之前一定要将地理数据转换为投影数据；
+使用shapefile时，不能存储空值（特别注意可能在数据处理过程中会将空值存储为0或者极大的负值）
+
+
+1.空间关系概念化  Concept">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Baidu Geocoding">
-<meta property="og:url" content="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/index.html">
+<meta property="og:title" content="Space Time Cube">
+<meta property="og:url" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/index.html">
 <meta property="og:site_name" content="Yxcui's Little Stack">
-<meta property="og:description" content="[TOC]
-有话说在当前的大数据和人工智能的浪潮下，铺天盖地都是数据挖掘、机器学习和人工智能，基础就是数据，就像在地理信息领域一直说的一句话 “数据是GIS的血液”，那么推广到现在的人工智能，大数据就是人工智能的血液，没有数据就无从谈起人工智能。
-在地理信息领域，一直存在的一个关键词就是（反）地理编码，地理编码是较为常用的一项地理信息技术，现在很多对于大量关于位置的信息都是存储为地址的形式，例如">
-<meta property="og:image" content="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/BaiduMap Geocoding.png">
-<meta property="og:updated_time" content="2017-08-16T09:18:05.424Z">
+<meta property="og:description" content="传统的空间聚类模式识别是基于一个空间聚类分析来识别具有统计显著性的热点、冷点和空间异常值的位置。
+空间关系建模基础概念注意事项:
+
+
+空间统计中基于欧氏距离或曼哈顿距离来度量距离，总是针对投影数据来进行的操作，所以在运用之前一定要将地理数据转换为投影数据；
+使用shapefile时，不能存储空值（特别注意可能在数据处理过程中会将空值存储为0或者极大的负值）
+
+
+1.空间关系概念化  Concept">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/distance band.png">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/local Moran's I.png">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/formula local Moran's I.png">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/LQYD local Moran's I">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/Getis-Ord Gi.png">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/formula Getis-Ord Gi.png">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/create netCDF.png">
+<meta property="og:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/identify hot spot.png">
+<meta property="og:updated_time" content="2017-11-13T13:13:11.476Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Baidu Geocoding">
-<meta name="twitter:description" content="[TOC]
-有话说在当前的大数据和人工智能的浪潮下，铺天盖地都是数据挖掘、机器学习和人工智能，基础就是数据，就像在地理信息领域一直说的一句话 “数据是GIS的血液”，那么推广到现在的人工智能，大数据就是人工智能的血液，没有数据就无从谈起人工智能。
-在地理信息领域，一直存在的一个关键词就是（反）地理编码，地理编码是较为常用的一项地理信息技术，现在很多对于大量关于位置的信息都是存储为地址的形式，例如">
-<meta name="twitter:image" content="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/BaiduMap Geocoding.png">
+<meta name="twitter:title" content="Space Time Cube">
+<meta name="twitter:description" content="传统的空间聚类模式识别是基于一个空间聚类分析来识别具有统计显著性的热点、冷点和空间异常值的位置。
+空间关系建模基础概念注意事项:
+
+
+空间统计中基于欧氏距离或曼哈顿距离来度量距离，总是针对投影数据来进行的操作，所以在运用之前一定要将地理数据转换为投影数据；
+使用shapefile时，不能存储空值（特别注意可能在数据处理过程中会将空值存储为0或者极大的负值）
+
+
+1.空间关系概念化  Concept">
+<meta name="twitter:image" content="http://yxcui.github.io/2017/11/03/Space-Time-Cube/distance band.png">
 
 
 
@@ -134,13 +159,13 @@
 
 
 
-  <link rel="canonical" href="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/"/>
+  <link rel="canonical" href="http://yxcui.github.io/2017/11/03/Space-Time-Cube/"/>
 
 
 
 
 
-  <title> Baidu Geocoding | Yxcui's Little Stack </title>
+  <title> Space Time Cube | Yxcui's Little Stack </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -345,7 +370,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/">
+    <link itemprop="mainEntityOfPage" href="http://yxcui.github.io/2017/11/03/Space-Time-Cube/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yxcui">
@@ -366,7 +391,7 @@
             
             
               
-                Baidu Geocoding
+                Space Time Cube
               
             
           </h1>
@@ -381,8 +406,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T16:03:50+08:00">
-                2017-08-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-03T09:26:20+08:00">
+                2017-11-03
               </time>
             
 
@@ -400,8 +425,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/08/16/Baidu-Geocoding/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count fb-comments-count" data-href="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/" itemprop="commentCount">0</span> comments
+                <a href="/2017/11/03/Space-Time-Cube/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://yxcui.github.io/2017/11/03/Space-Time-Cube/" itemprop="commentCount">0</span> comments
                 </a>
               </span>
             
@@ -409,7 +434,7 @@
 
           
           
-             <span id="/2017/08/16/Baidu-Geocoding/" class="leancloud_visitors" data-flag-title="Baidu Geocoding">
+             <span id="/2017/11/03/Space-Time-Cube/" class="leancloud_visitors" data-flag-title="Space Time Cube">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -443,46 +468,107 @@
       
 
       
-        <p>[TOC]</p>
-<h3 id="有话说"><a href="#有话说" class="headerlink" title="有话说"></a>有话说</h3><p>在当前的大数据和人工智能的浪潮下，铺天盖地都是数据挖掘、机器学习和人工智能，基础就是数据，就像在地理信息领域一直说的一句话 “数据是GIS的血液”，那么推广到现在的人工智能，大数据就是人工智能的血液，没有数据就无从谈起人工智能。</p>
-<p>在地理信息领域，一直存在的一个关键词就是（反）地理编码，地理编码是较为常用的一项地理信息技术，现在很多对于大量关于位置的信息都是存储为地址的形式，例如 “上海市闵行区东川路500号”，而在有关空间分析的时候是不能很好的利用这些文本地址数据去进行空间化，而是需要将其转换为一个个的地理坐标（经纬度），然后进行空间化，这样就能在传统的分析基础上，增加空间维度，使得数据分析具有空间上的意义，比如空间聚类、地理加权回归以及空间可视化。</p>
-<p>本文围绕百度地图（反）地理编码进行记录。</p>
-<h3 id="（反）地理编码简述"><a href="#（反）地理编码简述" class="headerlink" title="（反）地理编码简述"></a>（反）地理编码简述</h3><blockquote>
-<ul>
-<li>地理编码又称地址匹配，就是指将要素的地址信息（如所在的城市、路名、门牌号和邮政编码等）转换为地理坐标信息。</li>
-</ul>
-<ul>
-<li>反地理编码，即为地理编码的逆向过程，就是将将地理坐标转换为标准地址。</li>
-</ul>
-<ul>
-<li>地理编码服务：有很多的地图公司都提供的了在线的地理编码服务，如百度地图、谷歌地图以及高德地图等等。</li>
-</ul>
-</blockquote>
-<h3 id="地理坐标系统"><a href="#地理坐标系统" class="headerlink" title="地理坐标系统"></a>地理坐标系统</h3><p>地理坐标的数值只有在一个标准的地理坐标系统环境下，才是有意义的，在地理学上，比较常见的就是地理坐标和投影坐标，此处只看地理坐标。</p>
-<p>在国内较为常见的地理坐标系统包括WGS84，即GPS上使用的坐标系；国测局坐标，又称火星坐标系，简称GCJ02；另外就是百度坐标。</p>
+        <p>传统的空间聚类模式识别是基于一个空间聚类分析来识别具有统计显著性的热点、冷点和空间异常值的位置。</p>
+<h3 id="空间关系建模基础概念"><a href="#空间关系建模基础概念" class="headerlink" title="空间关系建模基础概念"></a>空间关系建模基础概念</h3><p><strong>注意事项</strong>:</p>
 <blockquote>
 <ul>
-<li>注：百度坐标是在火星坐标系上进一步进行加密，也只有百度地图使用；</li>
-</ul>
-<ul>
-<li>火星坐标一般是国内常用的地图公司，如高德、腾讯和搜狗地图等等。</li>
-</ul>
-<ul>
-<li>WGS84 坐标系是国家标准，常见的谷歌地图、osm等。</li>
+<li>空间统计中基于欧氏距离或曼哈顿距离来度量距离，总是针对投影数据来进行的操作，所以在运用之前一定要将地理数据转换为投影数据；</li>
+<li>使用shapefile时，不能存储空值（<b>特别注意可能在数据处理过程中会将空值存储为0或者极大的负值</b>）</li>
 </ul>
 </blockquote>
-<p>此文使用的是百度地图的地理编码服务，故地理编码返回的是百度坐标，然后利用转换公式将其转换为WGS-84 坐标。</p>
-<h3 id="百度地图地理编码服务"><a href="#百度地图地理编码服务" class="headerlink" title="百度地图地理编码服务"></a>百度地图地理编码服务</h3><h4 id="1-百度地图地理编码服务"><a href="#1-百度地图地理编码服务" class="headerlink" title="1. 百度地图地理编码服务"></a>1. 百度地图地理编码服务</h4><p><img src="/2017/08/16/Baidu-Geocoding/BaiduMap Geocoding.png" alt="BaiduMap Geocoding"></p>
-<p><a href="http://lbsyun.baidu.com/index.php?title=webapi/guide/webservice-geocoding" target="_blank" rel="external">百度地图地理编码服务</a>主界面如上，该服务提供的接口可以将地理转换为经纬度或将经纬度转换为地址，对于语言没有限制，返回的格式为JSON或XML。<br>帮助非常详细，此处不再冗余说明。</p>
-<h4 id="2-Python-代码"><a href="#2-Python-代码" class="headerlink" title="2. Python 代码"></a>2. Python 代码</h4><p>利用Python进行网络请求，这就需要一些模块的支持，如<strong>urllib2</strong>用于请求服务接口，<strong>json</strong>用于解析返回的数据包，<strong>time</strong>用于持续请求的控制，过快频繁的请求会让服务器压力增大，进而可能会收到空的数据包或者返回异常，所以建议请求一定次数后间隔一段时间再发出请求，<strong>math</strong>模块用于公式的转换。<br><strong>重要的是ak，一定要申请，最好实名认证一下，这样可以增加每天的请求次数</strong>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># geocoding service address</span></div><div class="line">urlService = <span class="string">"http://api.map.baidu.com/geocoder/v2/"</span></div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># coding params</span></div><div class="line">paramsCode = &#123;<span class="string">"ak"</span>:<span class="string">"your ak"</span>,<span class="string">"output"</span>:<span class="string">"json"</span>,<span class="string">"callback"</span>:<span class="string">"showLocation"</span>&#125;</div><div class="line"><span class="comment"># recoding params</span></div><div class="line">paramsRecode = &#123;<span class="string">"ak"</span>:<span class="string">"your ak"</span>,<span class="string">"output"</span>:<span class="string">"json"</span>,<span class="string">"callback"</span>:<span class="string">"renderReverse"</span>&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># url request for response</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">urlRequest</span><span class="params">(url, params)</span>:</span></div><div class="line">    request = urllib2.Request(url, urllib.urlencode(params))</div><div class="line">    html = <span class="string">"&#123;'status':1,'result':&#123;'location':&#123;'lng':0,'lat':0&#125;,'precise':0,'confidence':0,'level':'ok'&#125;&#125;"</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        response = urllib2.urlopen(request)</div><div class="line">        html = response.read()</div><div class="line">        response.close()</div><div class="line">        time.sleep(<span class="number">0.3</span>)   <span class="comment"># sleep for 0.3 seconds at once</span></div><div class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:   <span class="comment"># detect the Exception</span></div><div class="line">        <span class="keyword">print</span> err</div><div class="line">        time.sleep(<span class="number">300</span>)</div><div class="line">    <span class="keyword">finally</span>:</div><div class="line">        <span class="keyword">return</span> html</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># transfer Json text obj to Json python object</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">objToJson</span><span class="params">(docJson)</span>:</span></div><div class="line">    objJson = json.loads(docJson)   <span class="comment"># Deserialize 'docJson'(a 'str' or 'unicode' instance containing a JSON document) to a Python object</span></div><div class="line">    <span class="keyword">return</span> objJson</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># transfer address to LngLat</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">AddrToLngLat</span><span class="params">(address, city=<span class="string">'上海'</span>)</span>:</span> <span class="comment"># 请求参数address(必须)/city(非必须，默认"北京市")</span></div><div class="line">    location = &#123;&#125;</div><div class="line">    paramsCode[<span class="string">"address"</span>] = address</div><div class="line">    paramsCode[<span class="string">"city"</span>] = city</div><div class="line">    content = objToJson(urlRequest(urlService,paramsCode))</div><div class="line">    </div><div class="line">    status = content[<span class="string">'status'</span>] <span class="comment">#返回结果状态</span></div><div class="line">    <span class="keyword">if</span> status == <span class="number">0</span>:</div><div class="line">        result = content[<span class="string">'result'</span>] <span class="comment">#返回结果</span></div><div class="line">        location = result[<span class="string">'location'</span>] <span class="comment">#object类型,经纬度坐标</span></div><div class="line">        precise = result[<span class="string">'precise'</span>] <span class="comment">#位置附加信息，是否精确查找。1为精确查找，0为模糊打点</span></div><div class="line">        confidence = result[<span class="string">'confidence'</span>] <span class="comment">#可信度，描述打点精确度</span></div><div class="line">        level = result[<span class="string">'level'</span>] <span class="comment">#地址类型</span></div><div class="line">        <span class="keyword">return</span> location</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> &#123;<span class="string">'lat'</span>:<span class="number">0</span>,<span class="string">'lng'</span>:<span class="number">0</span>&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># transfer LngLat to address</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">LngLatToAddr</span><span class="params">(location,coordtype=<span class="string">'wgs84ll'</span>,pois=<span class="number">0</span>)</span>:</span> <span class="comment"># 请求参数location(必须)/coordtype(非必须，默认"bd09ll")/pois(非必须，默认"0")</span></div><div class="line">    paramsRecode[<span class="string">'location'</span>] = location</div><div class="line">    paramsRecode[<span class="string">'coordtype'</span>] = coordtype</div><div class="line">    paramsRecode[<span class="string">'pois'</span>] = pois</div><div class="line">    content = objToJson(urlRequest(urlService,paramsRecode))</div><div class="line"></div><div class="line">    status = content[<span class="string">'status'</span>] <span class="comment">#返回结果状态</span></div><div class="line">    result = content[<span class="string">'result'</span>] <span class="comment">#返回结果</span></div><div class="line">    formatted_address = result[<span class="string">'formatted_address'</span>] <span class="comment">#结构化地址信息</span></div><div class="line">    business = result[<span class="string">'business'</span>] <span class="comment">#所在商圈信息，如"人民大学,中关村,苏州街"</span></div><div class="line">    addressComponent = result[<span class="string">'addressComponent'</span>] <span class="comment">#组成地址的各部分信息</span></div><div class="line">    pois = result[<span class="string">'pois'</span>] <span class="comment">#周边POI数组，数组元素又包含商圈的基本信息</span></div><div class="line">    sematic_description = result[<span class="string">'sematic_description'</span>] <span class="comment">#当前位置结合POI的语义化结果描述</span></div><div class="line">    <span class="keyword">return</span> formatted_address</div></pre></td></tr></table></figure>
-<p>以上的代码能够完整的进行（反）地理编码，但是地理编码返回的是百度坐标系，在大多数的分析软件中的是不支持的，比如ArcGIS，接下来就需要将其转换为WGS-84坐标系，以便后续的利用。<br>此公式是一个较为常用的，亲测可行。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># convert Baidu Coordinates to WGS84 that used more</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(bd_lat,bd_lng)</span>:</span></div><div class="line">    <span class="keyword">import</span> math</div><div class="line">    pi = math.pi*<span class="number">3000.0</span> / <span class="number">180.0</span></div><div class="line">    x = bd_lng - <span class="number">0.0065</span></div><div class="line">    y = bd_lat - <span class="number">0.006</span></div><div class="line">    z = math.sqrt(x*x+y*y) - <span class="number">0.00002</span>*math.sin(y*pi)</div><div class="line">    theta = math.atan2(y,x) - <span class="number">0.000003</span>*math.cos(x*pi)</div><div class="line">    lng = z*math.cos(theta)</div><div class="line">    lat = z*math.sin(theta)</div><div class="line">    data = [str(lat), str(lng)]</div><div class="line">    <span class="keyword">return</span> data</div></pre></td></tr></table></figure></p>
-
+<h4 id="1-空间关系概念化-Conceptulization-of-Spatial-Relationships"><a href="#1-空间关系概念化-Conceptulization-of-Spatial-Relationships" class="headerlink" title="1.空间关系概念化  Conceptulization of Spatial  Relationships"></a>1.空间关系概念化  Conceptulization of Spatial  Relationships</h4><p><strong>适用</strong>：空间自相关（global Moran’s I）、聚类和异常值分析（Anselin local Moran’s I）、热点分析（Getis-Ord Gi*）等，注意某些选项只有在生成<code>空间权重矩阵</code>或生成<code>网络空间权重</code>时才可用。</p>
+<ol>
+<li><p>反距离、反距离平方（阻抗）<br>使用“反距离”选项时，空间关系的概念模型是一种阻抗或距离衰减。任何要素都会影响其他所有要素，但距离越远，影响越小。使用反距离这一概念化表述时，通常要指定一个距离范围或距离阈值以减少所需的计算数（尤其对于大型数据集而言）。<br>反欧氏距离适用于对连续数据（如温度变化）进行建模。当分析涉及硬件存储的位置或其他固定的城市设施位置时，道路网络数据不再适用，而反曼哈顿距离可能最为合适。</p>
+</li>
+<li><p>固定距离范围（影响的范围）<br>对于某些工具（如热点分析），固定距离范围是默认空间关系的概念化。通过“固定距离范围”选项，可以对数据施加一个空间交互的影响范围或移动窗口概念模型。只为在距离范围内的每个要素进行分析，权重相等，范围外的不参与运算，权重为0。</p>
+</li>
+<li><p>无差别的区域<br>该选项是将“反距离”模型和“固定距离范围”模型合并为一体。距离范围或距离阈值内的所有要素都包含在对目标要素的分析中，超过关键距离后，影响级别（权重）会快速下降。<br>这种情况下，距离会变得更像是阻抗并且可能影响到最终决策。</p>
+</li>
+<li><p>面邻接（一阶）<br>对于面要素类，可选择 CONTIGUITY_EDGES_ONLY（有时称为 Rook’s Case）或 CONTIGUITY_EDGES_CORNERS（有时称为 Queen’s Case）。对于 EDGES_ONLY，共享边（具有重合边界）的面包含在目标面的计算中。不共享边的面被排除在目标要素计算之外。对于 EDGES_CORNERS，共享边和/或角的面包含于目标面的计算中。</p>
+</li>
+<li><p>K最近邻域<br>构造邻域关系，以便每个要素都可在其指定数量的最近邻域空间环境内进行评估。该种方式在要素密度高的位置处，分析的空间范围会比较小。与此类似，要素密度稀的位置，分析的空间范围会比较大。<br>应用于<code>生成空间权重矩阵（Generate Spatial Weights Matrix）</code>工具，以结合探索性回归评估回归残差。相邻要素数目设置为8。</p>
+</li>
+<li><p>Delaunay三角测量（自然邻域）<br>使用“Delaunay 三角测量”选项可构造邻域，方法是通过点要素或要素质心创建 Voronoi 三角形，使得每个点/质心都是三角形结点。由三角形的边连接的结点被视为相邻结点。使用 Delaunay 三角测量可确保每个要素至少具有一个邻域，即使数据包含岛和/或变化明显的要素密度。可用于<code>生成空间权重矩阵</code>工具中。<br>注：有要素重合时不可使用。</p>
+</li>
+<li><p>空间时间窗<br>根据空间窗（固定距离）和时间窗（固定时间间隔）来定义要素的关系。当使用<code>生成空间权重矩阵</code>工具创建空间权重矩阵文件时，此选项可用，且以此配合热点分析空间-时间热点。</p>
+</li>
+<li><p>通过文件获取空间权重<br>可用于<code>生成空间权重矩阵</code>工具或<code>生成网络空间权重</code>工具来创建存储要素邻域关系的文件。<br>例如要使用根据网络数据集获得的行程时间或行程成本来定义空间关系，可使用生成网络空间权重工具创建空间权重矩阵文件，然后使用得到的 SWM 文件进行分析。</p>
+</li>
+</ol>
+<h4 id="2-距离范围或距离阈值-distance-band-threshold-distance"><a href="#2-距离范围或距离阈值-distance-band-threshold-distance" class="headerlink" title="2.距离范围或距离阈值  distance band/ threshold distance"></a>2.距离范围或距离阈值  distance band/ threshold distance</h4><p>使用距离范围或距离阈值可设置大多数空间关系的概念化（例如，反距离、固定距离范围）的分析比例。<br>使用“无差别的区域 ZONE_OF_INDIFFERENCE”时，指定距离之外的要素的影响会随邻近程度的减小而变弱，而距离阈值之内的影响则视为是相等的。<br>空间关系的概念化参数的不同选项对于三种可能的输入类型（负值无效）的行为方式如下：<br><img src="/2017/11/03/Space-Time-Cube/distance band.png" alt="distance band"></p>
+<h4 id="3-权重矩阵"><a href="#3-权重矩阵" class="headerlink" title="3.权重矩阵"></a>3.权重矩阵</h4><p>空间权重是反映数据集中每个要素和其他任何一个要素之间的距离、时间或其他成本的数字，格式可为ASCII文件。<br><strong>格式</strong>：<br>第一行是唯一ID字段的名称，每个要素具有唯一值；后面的每行为三列，分别为起始要素ID、终止要素ID和权重。<br>注：权重在表示距离或时间会被取到数。</p>
+<h3 id="聚类和异常值分析"><a href="#聚类和异常值分析" class="headerlink" title="聚类和异常值分析"></a>聚类和异常值分析</h3><p>ArcGIS中的<code>Cluster and Outlier (Anselin Local Morans I)</code>工具<br><img src="/2017/11/03/Space-Time-Cube/local Moran&#39;s I.png" alt="local Moran&#39;s I"></p>
+<p><strong>1.作用</strong>：该工具是根据指定的分析字段来识别高值或低值的要素在空间上的聚类，同时可以识别异常值。计算结果有<code>local Moran&#39;s I指数</code>、<code>z得分</code>、<code>p值</code>和每个具有显著统计学意义的要素的聚类所属类型的编码，其中z得分和p值表示计算出的local Moran’s I指数的统计显著性。</p>
+<p><strong>2.公式</strong>：<br><img src="/2017/11/03/Space-Time-Cube/formula local Moran&#39;s I.png" alt="formula local Moran&#39;s I"></p>
+<p><strong>3.解释</strong>：</p>
+<blockquote>
+<ul>
+<li>local Moran’s I：正值表示要素周围具有同样高或低的邻近要素；负值表示要素周围具有不同值的邻近要素，即为异常值。<ul>
+<li>注：被视为统计学上显著性的聚类和异常值，其对应的p值必须足够小</li>
+</ul>
+</li>
+<li>聚类/异常值类型 (COType) 字段：HH聚类、LL聚类；HL聚类、LH聚类（异常值）。</li>
+</ul>
+</blockquote>
+<p><strong>4.应用准则</strong>：</p>
+<blockquote>
+<ul>
+<li>要素至少包括30个；</li>
+<li>输入字段为数值型，如果是点数据，则无需特定数值属性；</li>
+<li>如果查找多个事件点或少许事件点的位置，可用热点分析工具<code>Getis-Ord Gi*</code>；<ul>
+<li>注：只有聚类和异常值分析<code>Anselin Local Moran&#39;s I</code>工具可以识别统计学显著性和空间异常值（HL/LH）</li>
+</ul>
+</li>
+<li>合适的距离范围或阈值范围；<ul>
+<li>所有要素至少具有一个相邻要素</li>
+<li>任何要素都不应该将其它所有要素都作为相邻要素</li>
+<li>输入字段的值有偏斜时，每个要素应具有大约八个相邻要素</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>5.应用</strong>：</p>
+<blockquote>
+<ul>
+<li>犯罪的高低值边界；</li>
+<li>空间异常点检测。</li>
+</ul>
+</blockquote>
+<p><strong>6.实例</strong>:<br>上海市两抢一盗<br><img src="/2017/11/03/Space-Time-Cube/LQYD local Moran&#39;s I" alt="LQYD local Moran&#39;s I"></p>
+<h3 id="热点分析（Geti-Ord-Gi-）"><a href="#热点分析（Geti-Ord-Gi-）" class="headerlink" title="热点分析（Geti-Ord  Gi*）"></a>热点分析（Geti-Ord  Gi*）</h3><p>ArcGIS中的<code>Hot Spot Analysis（Getis-Ord Gi*）</code>工具<br><img src="/2017/11/03/Space-Time-Cube/Getis-Ord Gi.png" alt="Getis-Ord Gi*"></p>
+<p>热点分析工具是对数据集中的每一个要素计算Getis-Ord Gi<em>。然后通过z得分和p值，即可知道高值或低值要素在空间上发生聚类的位置。<br><em>*1.原理</em></em>：高值要素很容易发现，但是有可能不具有统计学意义，所以要根据邻近要素是否为高值，且同样被邻近高值要素环绕。<br>量化：某个要素及其相邻要素的局部总和将与所有要素的总和进行比较；当局部总和与所预期的局部总和有很大差异，以致于无法成为随机产生的结果时，会产生一个具有显著统计学意义的 <code>z 得分</code>。</p>
+<p><strong>2.公式</strong>:<br><img src="/2017/11/03/Space-Time-Cube/formula Getis-Ord Gi.png" alt="formula Getis-Ord Gi*"></p>
+<p><strong>3.解释</strong>：<br>具有显著统计学意义的z得分，正值z越大，则热点的聚类越紧密，反之负值z越小，则冷点的聚类就越紧密。</p>
+<p><strong>4.注意</strong>：</p>
+<blockquote>
+<ol>
+<li>分析字段：热点分析评估的是值在空间上的高低聚类情况，包含该类值的字段为输入字段。特别注意的是点事件数据，针对该类分析是关注于点密度，热点分析工具不能直接完成此操作，需要将点数据先进行聚合，如在格网上进行计数、某个点一定范围内的点数量等，然后以此点计数字段作为输入字段；</li>
+<li>参数选取<ul>
+<li>空间关系的概念化（Conceptualization of Spatial Relationships）：默认FIEXD_DISTANCE_BAND(推荐)</li>
+<li>距离范围（Distance Method）：</li>
+<li>距离阈值（Threshold Distance）：</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p><strong>5.应用准则</strong>：</p>
+<blockquote>
+<ol>
+<li>输入要素类至少包含30个要素；</li>
+<li>空间关系概念化推荐FIXED_DISTANCE_BAND；</li>
+<li>距离范围或距离阈值<ul>
+<li>所有要素至少具有一个相邻要素；</li>
+<li>任何要素都不应该将其它所有要素都作为相邻要素；</li>
+<li>输入字段的值有偏斜时，每个要素应具有大约八个相邻要素</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<h3 id="时空模式挖掘"><a href="#时空模式挖掘" class="headerlink" title="时空模式挖掘"></a>时空模式挖掘</h3><p>主要内容包括空间和时间上数据的分布和模式分析。</p>
+<h4 id="1-NetCDF-数据结构"><a href="#1-NetCDF-数据结构" class="headerlink" title="1.NetCDF 数据结构"></a>1.NetCDF 数据结构</h4><p>全称是网络公用数据格式，是一种用来存储温度、湿度、气压、风速和风向等多维科学数据（变量）的文件格式。在 ArcGIS 中，通过根据 NetCDF 文件创建图层或表视图，可以用一个维度（例如时间）来显示上述所有变量。<br><strong>特性</strong>：自描述性、可移植性、可扩展性<br><strong>基本组成</strong>：维度、变量和属性<br><strong>ArcGIS中使用</strong>：在MultiDimension Tools 中有多个工具关于NetCDF 的工具可以操作该数据格式。<br><a href="http://desktop.arcgis.com/zh-cn/arcmap/10.4/manage-data/netcdf/about-the-netcdf-tutorial.htm" target="_blank" rel="external">ArcGIS 帮助链接</a></p>
+<h4 id="2-创建时空立方体"><a href="#2-创建时空立方体" class="headerlink" title="2.创建时空立方体"></a>2.创建时空立方体</h4><p>将一组点聚合到时空条柱将其汇总到NetCDF数据结构中，在每个条柱内计算点并聚合指定属性。然后对所有条柱位置评估计数趋势和汇总字段值。<br><img src="/2017/11/03/Space-Time-Cube/create netCDF.png" alt="创建NetCDF"></p>
+<h4 id="3-新兴时空热点分析"><a href="#3-新兴时空热点分析" class="headerlink" title="3.新兴时空热点分析"></a>3.新兴时空热点分析</h4><p>识别时空立方体中点计数或汇总字段聚类中的趋势，类别包括新增的、连续的、加强的、持续的、逐渐减少的、分散的、振荡的以及历史的热点和冷点。<br><img src="/2017/11/03/Space-Time-Cube/identify hot spot.png" alt="识别点"></p>
+<h4 id="4-挖掘工具"><a href="#4-挖掘工具" class="headerlink" title="4.挖掘工具"></a>4.挖掘工具</h4>
       
     </div>
 
@@ -528,8 +614,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/13/Step-Stones/" rel="next" title="Step Stones">
-                <i class="fa fa-chevron-left"></i> Step Stones
+              <a href="/2017/09/13/connectivity/" rel="next" title="connectivity">
+                <i class="fa fa-chevron-left"></i> connectivity
               </a>
             
           </div>
@@ -538,8 +624,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/21/五大常用算法/" rel="prev" title="五大常用算法">
-                五大常用算法 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/11/03/Space-Time-Cube/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +653,7 @@
   <div class="comments" id="comments">
     
       <div class="fb-comments"
-           data-href="http://yxcui.github.io/2017/08/16/Baidu-Geocoding/"
+           data-href="http://yxcui.github.io/2017/11/03/Space-Time-Cube/"
            data-numposts="10"
            data-width="100%"
            data-colorscheme="light">
@@ -692,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#有话说"><span class="nav-number">1.</span> <span class="nav-text">有话说</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（反）地理编码简述"><span class="nav-number">2.</span> <span class="nav-text">（反）地理编码简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地理坐标系统"><span class="nav-number">3.</span> <span class="nav-text">地理坐标系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度地图地理编码服务"><span class="nav-number">4.</span> <span class="nav-text">百度地图地理编码服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-百度地图地理编码服务"><span class="nav-number">4.1.</span> <span class="nav-text">1. 百度地图地理编码服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Python-代码"><span class="nav-number">4.2.</span> <span class="nav-text">2. Python 代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#空间关系建模基础概念"><span class="nav-number">1.</span> <span class="nav-text">空间关系建模基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-空间关系概念化-Conceptulization-of-Spatial-Relationships"><span class="nav-number">1.1.</span> <span class="nav-text">1.空间关系概念化  Conceptulization of Spatial  Relationships</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-距离范围或距离阈值-distance-band-threshold-distance"><span class="nav-number">1.2.</span> <span class="nav-text">2.距离范围或距离阈值  distance band/ threshold distance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-权重矩阵"><span class="nav-number">1.3.</span> <span class="nav-text">3.权重矩阵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚类和异常值分析"><span class="nav-number">2.</span> <span class="nav-text">聚类和异常值分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热点分析（Geti-Ord-Gi-）"><span class="nav-number">3.</span> <span class="nav-text">热点分析（Geti-Ord  Gi*）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时空模式挖掘"><span class="nav-number">4.</span> <span class="nav-text">时空模式挖掘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-NetCDF-数据结构"><span class="nav-number">4.1.</span> <span class="nav-text">1.NetCDF 数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建时空立方体"><span class="nav-number">4.2.</span> <span class="nav-text">2.创建时空立方体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-新兴时空热点分析"><span class="nav-number">4.3.</span> <span class="nav-text">3.新兴时空热点分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-挖掘工具"><span class="nav-number">4.4.</span> <span class="nav-text">4.挖掘工具</span></a></li></ol></li></ol></div>
             
 
           </div>
